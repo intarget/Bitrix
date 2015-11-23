@@ -4,8 +4,6 @@ IncludeModuleLangFile(__FILE__);
 
 Class CUptolikeIntarget
 {
-	
-	const HOST = 'http://intarget-dev.lembrd.com/';
 	const PARTNER_ID = "cms";
 	
 	function ini()
@@ -27,12 +25,13 @@ Class CUptolikeIntarget
 			$jsondata = json_encode(array(
 				'email' => $email,
 				'key' => $key,
-				'url' => self::HOST,
-				'cms' => 'opencart'));
+				'url' => "http://bitrix1.utlplugins.ru/",
+				'cms' => 'bitrix')
+			);
 
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 				'Content-Type:application/json', 'Accept: application/json'));
-			curl_setopt($ch, CURLOPT_URL, "http://intarget-dev.lembrd.com/api/registration.json"); //intarget-dev.lembrd.com
+			curl_setopt($ch, CURLOPT_URL, "https://intarget.ru/api/registration.json"); //intarget-dev.lembrd.com
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $jsondata);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -56,12 +55,12 @@ Class CUptolikeIntarget
 						$json_result->message = GetMessage('INTARGET_TAB_MESS_5');
 					}
 					if (!isset($json_result->code)) {
-						$json_result->message = 'Неверный формат данных.';
+						$json_result->message = GetMessage('INTARGET_TAB_MESS_6');
 					}
 					return array('error' => $json_result->message);
 				}
 			}
-			return array('error' => 'Ответ от сервера inTarget не получен. Попробуйсте, пожалуйста, позднее.');
+			return array('error' => GetMessage('INTARGET_TAB_MESS_7'));
 		}
 	}
 }

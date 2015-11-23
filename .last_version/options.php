@@ -60,7 +60,12 @@ $tabControl->Begin();
 <form id="uptolike_form" method="post" action="<? echo $APPLICATION->GetCurPage()?>?mid=<?=urlencode($mid)?>&amp;lang=<? echo LANGUAGE_ID?>">
 
 <? $tabControl->BeginNextTab();?>
-	Оцените принципиально новый подход к просмотру статистики. Общайтесь со своей аудиторией, продавайте лучше, зарабатываейте больше. И всё это бесплатно!
+
+	<tr class="heading">
+		<td colspan="2"><b><?=GetMessage('INTARGET_TAB_HEADER')?></b></td>
+	</tr>
+
+	<input id="intarget_id" type="hidden" name="INTARGET_ID" value="<?=htmlspecialcharsbx($INTARGET_ID)?>">
 	<?
 	$stat_url = '';
 	if($INTARGET_MAIL and $INTARGET_KEY):
@@ -93,15 +98,24 @@ $tabControl->Begin();
 	<tr id="uptolike_email_field">
 		<td><?=GetMessage("INTARGET_TAB_MAIL")?></td>
 		<td>
-			<input id="uptolike_email" type="text" name="INTARGET_MAIL" value="<?=htmlspecialcharsbx($INTARGET_MAIL)?>" required>
+			<input id="uptolike_email" type="text" name="INTARGET_MAIL" value="<?=htmlspecialcharsbx($INTARGET_MAIL)?>" >
         </td>
 	</tr>
 	<tr id="uptolike_key_field">
 		<td><?=GetMessage("INTARGET_TAB_KEY")?></td>
 		<td>
-			<input id="uptolike_key" type="text" name="INTARGET_KEY" value="<?=htmlspecialcharsbx($INTARGET_KEY)?>" required>
+			<input id="uptolike_key" type="text" name="INTARGET_KEY" value="<?=htmlspecialcharsbx($INTARGET_KEY)?>" >
 		</td>
 	</tr>
+
+	<?=GetMessage("INTARGET_TAB_TEXT1")?>
+
+	<?=GetMessage("INTARGET_TAB_TEXT2")?>
+
+	<?=GetMessage("INTARGET_TAB_TEXT3")?>
+
+	<?=GetMessage("INTARGET_TAB_TEXT4")?>
+
 
 <? $tabControl->Buttons();?>
 	<input id="uptolike_form_update" type="submit" name="Update" value="<?=GetMessage("MAIN_SAVE")?>" title="<?=GetMessage("MAIN_OPT_SAVE_TITLE")?>" class="adm-btn-save">
