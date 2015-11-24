@@ -44,6 +44,7 @@ Class CUptolikeIntarget
 
 			if (isset($json_result->status)) {
 				if (($json_result->status == 'OK')) {
+
 					return array('ok' => $json_result->payload->projectId);
 				} elseif ($json_result->status == 'error') {
 					if ($json_result->code == '403') {

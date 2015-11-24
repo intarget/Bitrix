@@ -64,8 +64,6 @@ $tabControl->Begin();
 	<tr class="heading">
 		<td colspan="2"><b><?=GetMessage('INTARGET_TAB_HEADER')?></b></td>
 	</tr>
-
-	<input id="intarget_id" type="hidden" name="INTARGET_ID" value="<?=htmlspecialcharsbx($INTARGET_ID)?>">
 	<?
 	$stat_url = '';
 	if($INTARGET_MAIL and $INTARGET_KEY):
@@ -89,22 +87,19 @@ $tabControl->Begin();
 	if($auth['ok']):?>
 		<div class="adm-info-message-wrap adm-info-message-green">
 			<div class="adm-info-message">
-				<?php echo $auth['ok'];?>
+				<?php echo GetMessage("INTARGET_ID_SUCCESS");?>
 				<div class="adm-info-message-icon"></div>
 			</div>
 		</div>
 	<?php endif;?>
-	<tr id="uptolike_email_field">
-		<td><?=GetMessage("INTARGET_TAB_MAIL")?></td>
-		<td>
-			<input id="uptolike_email" type="text" name="INTARGET_MAIL" value="<?=htmlspecialcharsbx($INTARGET_MAIL)?>" >
-        </td>
+	<input id="intarget_id" type="hidden" name="INTARGET_ID" value="<?=htmlspecialcharsbx($auth['ok'])?>"/>
+	<tr>
+		<td width="40%"><?=GetMessage("INTARGET_TAB_MAIL")?></td>
+		<td width="60%"><input id="uptolike_email" size="40" type="text" name="INTARGET_MAIL" value="<?=htmlspecialcharsbx($INTARGET_MAIL)?>"></td>
 	</tr>
-	<tr id="uptolike_key_field">
-		<td><?=GetMessage("INTARGET_TAB_KEY")?></td>
-		<td>
-			<input id="uptolike_key" type="text" name="INTARGET_KEY" value="<?=htmlspecialcharsbx($INTARGET_KEY)?>" >
-		</td>
+	<tr>
+		<td width="40%"><?=GetMessage("INTARGET_TAB_KEY")?></td>
+		<td  width="40%"><input id="uptolike_key" size="40" type="text" name="INTARGET_KEY" value="<?=htmlspecialcharsbx($INTARGET_KEY)?>"></td>
 	</tr>
 
 	<tr>
