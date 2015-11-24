@@ -77,8 +77,7 @@ $tabControl->Begin();
 			<div class="adm-info-message-icon"></div>
 		</div>
 	</div>
-	<?php endif;?>
-    <? var_dump($auth);
+	<?php endif;
 	if($auth['error']):?>
 	<div class="adm-info-message-wrap adm-info-message-red">
 		<div class="adm-info-message">
@@ -108,14 +107,18 @@ $tabControl->Begin();
 		</td>
 	</tr>
 
-	<?=GetMessage("INTARGET_TAB_TEXT1")?>
-
-	<?=GetMessage("INTARGET_TAB_TEXT2")?>
-
-	<?=GetMessage("INTARGET_TAB_TEXT3")?>
-
-	<?=GetMessage("INTARGET_TAB_TEXT4")?>
-
+	<tr>
+		<td><?=GetMessage("INTARGET_TAB_TEXT1")?></td>
+	</tr>
+	<tr>
+		<td><?=GetMessage("INTARGET_TAB_TEXT2")?></td>
+	</tr>
+	<tr>
+		<td><?=GetMessage("INTARGET_TAB_TEXT3")?></td>
+	</tr>
+	<tr>
+		<td><?=GetMessage("INTARGET_TAB_TEXT4")?></td>
+	</tr>
 
 <? $tabControl->Buttons();?>
 	<input id="uptolike_form_update" type="submit" name="Update" value="<?=GetMessage("MAIN_SAVE")?>" title="<?=GetMessage("MAIN_OPT_SAVE_TITLE")?>" class="adm-btn-save">
