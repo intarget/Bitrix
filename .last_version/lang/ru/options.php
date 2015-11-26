@@ -11,10 +11,10 @@ $MESS["INTARGET_TAB_LANGUAGE"] = "Язык:";
 $MESS["INTARGET_LANGUAGE_RU"] = "Русский";
 
 $MESS["INTARGET_ERROR"] = "Ошибка";
-$MESS["INTARGET_TAB_MAIL"] = "Email:";
-$MESS["INTARGET_TAB_KEY"] = "Ключ:";
-$MESS["INTARGET_TAB_WIDGET_CODE"] = "Код виджета:";
-$MESS["INTARGET_TAB_WIJET_SETTINGS"] = "Настройки виджета:";
+$MESS["INTARGET_MAIL"] = "Email";
+$MESS["INTARGET_KEY"] = "Ключ API";
+$MESS["INTARGET_ID"] = "inTarget ID";
+$MESS["INTARGET_CODE"] = "JS Код";
 
 $MESS["INTARGET_TAB_MESS_1"] = "Введите ваш адрес электронной почты сервиса intarget";
 $MESS["INTARGET_TAB_MESS_2"] = "Введите ваш ключ API";
@@ -36,3 +36,12 @@ $MESS["INTARGET_TAB_TEXT1"] = "Введите email и ключ API из лич�
 $MESS["INTARGET_TAB_TEXT2"] = "Если вы ещё не зарегистрировались в сервисе inTarget это можно сделать по ссылке <a href='https://intarget.ru'>inTarget.ru</a>";
 $MESS["INTARGET_TAB_TEXT3"] = "Служба технической поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a>";
 $MESS["INTARGET_TAB_TEXT4"] = "Bitrix inTarget ver.1.0.0";
+
+$MESS['CURL_DISABLED_MESSAGE'] = "Внимание! На хостинге не включена поддержка CURL. Она необходима для работы модуля.";
+$MESS['MAKE_REDIRECT_NO'] = "Нет";
+$MESS['MAKE_REDIRECT_YES'] = "Да";
+
+$MESS['OPTIONS_RESTORED'] = "Значения сброшены";
+$MESS['OPTIONS_SAVED'] = "Значения сохранены успешно";
+$MESS['ERROR_MAIL_EMPTY'] = "Значение уникального email должно быть заполнено";
+$MESS['ERROR_KEY_EMPTY'] = "Значение уникального ключа API должно быть заполнено";

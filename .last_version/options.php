@@ -1,129 +1,192 @@
-<?
-if(!$USER->IsAdmin())
-	return;
+<?php
 
-$module_id = "uptolike.intarget";
-IncludeModuleLangFile($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/options.php");
-IncludeModuleLangFile($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/".$module_id."/include.php");
-IncludeModuleLangFile(__FILE__);
+use Bitrix\Main\Localization\Loc;
 
-$MODULE_RIGHT = $APPLICATION->GetGroupRight($module_id);
-
-if ($MODULE_RIGHT >= "R"):
-
-$message = false;
-
-require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/".$module_id."/include.php");
-
-if ($message)
-	echo $message->Show();
-
-$aTabs = array(
-	array(
-		"DIV" => "edit0",
-		"TAB" => GetMessage("INTARGET_TAB_SETTINGS"),
-		"ICON" => "support_settings",
-		"TITLE" => GetMessage("INTARGET_TAB_SETTINGS_TITLE")
-	),
-);
-$tabControl = new CAdminTabControl("tabControl", $aTabs);
-
-if($message == ""):
-if($REQUEST_METHOD == "POST")
-{
-	if(strlen($RestoreDefaults) > 0)
-	{
-		COption::RemoveOption("uptolike.intarget");
-		COption::SetOptionString($module_id, "INTARGET_MAIL", $INTARGET_MAIL);
-		COption::SetOptionString($module_id, "INTARGET_KEY", $INTARGET_KEY);
-	}
-	else
-	{
-		COption::SetOptionString($module_id, "INTARGET_LANGUAGE", $INTARGET_LANGUAGE);
-		COption::SetOptionString($module_id, "INTARGET_MAIL", $INTARGET_MAIL);
-		COption::SetOptionString($module_id, "INTARGET_KEY", $INTARGET_KEY);
-		COption::SetOptionString($module_id, "WIDGET_CODE", $WIDGET_CODE);
-	}
-
-	if(strlen($Update) > 0 && strlen($_REQUEST["back_url_settings"]) > 0)
-		LocalRedirect($_REQUEST["back_url_settings"]);
+if (!$USER->IsAdmin()) {
+    return;
 }
-endif;
 
-$INTARGET_LANGUAGE = COption::GetOptionString($module_id, "INTARGET_LANGUAGE");
-$INTARGET_MAIL = COption::GetOptionString($module_id, "INTARGET_MAIL");
-$INTARGET_KEY = COption::GetOptionString($module_id, "INTARGET_KEY");
-$WIDGET_CODE = COption::GetOptionString($module_id, "WIDGET_CODE");
+define('ADMIN_MODULE_NAME', 'uptulike.intarget');
 
-$tabControl->Begin();
+
+if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
+
+    Loc::loadMessages($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/options.php");
+    Loc::loadMessages(__FILE__);
+
+    $tabControl = new CAdminTabControl("tabControl", array(
+        array(
+            "DIV" => "edit1",
+            "TAB" => GetMessage("MAIN_TAB_SET"),
+            "TITLE" => GetMessage("MAIN_TAB_TITLE_SET")
+        ),
+    ));
+
+    if ((!empty($save) || !empty($restore)) && $REQUEST_METHOD == "POST" && check_bitrix_sessid()) {
+
+        if (!empty($restore)) {
+
+            COption::RemoveOption(ADMIN_MODULE_NAME);
+            CAdminMessage::ShowMessage(array("MESSAGE" => Loc::getMessage("OPTIONS_RESTORED"), "TYPE" => "OK"));
+
+        } else {
+
+            $is_saved = false;
+
+//			$rsSites = CSite::GetList($by="sort", $order="desc");
+//			while ($arSite = $rsSites->Fetch()) {
+            $intarget_id = 'intarget_id';
+            $intarget_code = "intarget_code";//_".$arSite['ID'];
+            $intarget_mail = "intarget_mail";//_".$arSite['ID'];
+            $intarget_key = "intarget_key";//_".$arSite['ID'];
+
+            if (!empty($_REQUEST[$intarget_mail])) {
+                COption::SetOptionString(
+                    ADMIN_MODULE_NAME,
+                    $intarget_mail,
+                    $_REQUEST[$intarget_mail],
+                    Loc::getMessage("INTARGET_MAIL")
+                );
+                $is_saved = true;
+            } else {
+                CAdminMessage::ShowMessage(Loc::getMessage("ERROR_MAIL_EMPTY"));
+            }
+
+            if (!empty($_REQUEST[$intarget_key])) {
+                COption::SetOptionString(
+                    ADMIN_MODULE_NAME,
+                    $intarget_key,
+                    $_REQUEST[$intarget_key],
+                    Loc::getMessage("INTARGET_KEY")
+                );
+                $is_saved = true;
+            }
+
+//			}
+
+            if ($is_saved) {
+                $json_result = CUptolikeIntarget::userReg($_REQUEST[$intarget_mail], $_REQUEST[$intarget_key]);
+
+                if (isset($json_result->status)) {
+                    if (($json_result->status == 'OK')) {
+                        $intarget_id = $json_result->payload->projectId;
+                        COption::SetOptionString(
+                            ADMIN_MODULE_NAME,
+                            $intarget_id,
+                            $_REQUEST[$intarget_id],
+                            Loc::getMessage("INTARGET_ID")
+                        );
+                        $is_saved = true;
+                        CAdminMessage::ShowMessage(array("MESSAGE" => $json_result->payload->projectId, "TYPE" => "OK"));
+                    } elseif ($json_result->status == 'error') {
+                        if ($json_result->code == '403') {
+                            $json_result->message = Loc::getMessage('INTARGET_TAB_MESS_3');
+                        }
+                        if ($json_result->code == '500') {
+                            $json_result->message = Loc::getMessage('INTARGET_TAB_MESS_4');
+                        }
+                        if ($json_result->code == '404') {
+                            $json_result->message = Loc::getMessage('INTARGET_TAB_MESS_5');
+                        }
+                        if (!isset($json_result->code)) {
+                            $json_result->message = Loc::getMessage('INTARGET_TAB_MESS_6');
+                        }
+
+                        CAdminMessage::ShowMessage(array("MESSAGE" => $json_result->message, "TYPE" => "ERROR"));
+                    }
+                } else CAdminMessage::ShowMessage(array("MESSAGE" => Loc::getMessage("INTARGET_TAB_MESS_7"), "TYPE" => "ERROR"));
+            }
+
+        }
+
+    }
+
+    $tabControl->Begin();
+
+    ?>
+
+    <form method="post"
+          action="<?= $APPLICATION->GetCurPage() ?>?mid=<?= urlencode($mid) ?>&amp;lang=<?= LANGUAGE_ID ?>">
+
+        <?php if (!function_exists('curl_exec')): ?>
+            <div class="adm-info-message-wrap">
+                <div class="adm-info-message">
+                    <span
+                        class="required"><?= Loc::getMessage("CURL_DISABLED_MESSAGE") ?></span><br/>
+                    <?= Loc::getMessage("HOSTING_SUPPORT") ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <? $tabControl->BeginNextTab(); ?>
+
+        <?php
+
+        $intarget_mail = COption::GetOptionString(ADMIN_MODULE_NAME, "INTARGET_MAIL", '');
+        $intarget_key = COption::GetOptionString(ADMIN_MODULE_NAME, "INTARGET_KEY", '');
+        $intarget_id = COption::GetOptionString(ADMIN_MODULE_NAME, "INTARGET_ID", '');
+        $intarget_code = COption::GetOptionString(ADMIN_MODULE_NAME, "INTARGET_CODE", '');
+
+        //		$rsSites = CSite::GetList($by="sort", $order="desc");
+        //		while ($arSite = $rsSites->Fetch()):
+        $intarget_mail = "intarget_mail";//_".$arSite['ID'];
+        $intarget_key = "intarget_key";//_".$arSite['ID'];
+        $intarget_id = "intarget_id";//_".$arSite['ID'];
+        $intarget_code = "intarget_code";//_".$arSite['ID'];
+
+        $val_intarget_mail = COption::GetOptionString(ADMIN_MODULE_NAME, $intarget_mail, '');
+        $val_intarget_key = COption::GetOptionString(ADMIN_MODULE_NAME, $intarget_key, '');
+        $val_intarget_id = COption::GetOptionString(ADMIN_MODULE_NAME, $intarget_id, '');
+        $val_intarget_code = COption::GetOptionString(ADMIN_MODULE_NAME, $intarget_code, '');
+        ?>
+
+        <tr class="heading">
+            <td colspan="2"><b><?= GetMessage('INTARGET_TAB_HEADER') ?></b></td>
+        </tr>
+
+
+        <tr>
+            <td width="40%">
+                <label for="<?= $intarget_mail ?>"><?= Loc::getMessage("INTARGET_MAIL") ?>:</label>
+            <td width="60%">
+                <input type="text" size="50" name="<?= $intarget_mail ?>"
+                       value="<?= htmlspecialcharsbx($val_intarget_mail) ?>">
+            </td>
+        </tr>
+
+        <tr>
+            <td width="40%">
+                <label for="<?= $intarget_key ?>"><?= Loc::getMessage("INTARGET_KEY") ?>:</label>
+            <td width="60%">
+                <input type="text" size="50" name="<?= $intarget_key ?>"
+                       value="<?= htmlspecialcharsbx($val_intarget_key) ?>">
+            </td>
+        </tr>
+
+        <tr>
+            <input type="hidden" name="<?= $intarget_id ?>"
+                   value="<?= htmlspecialcharsbx($val_intarget_id) ?>">
+            <input type="hidden" name="<?= $intarget_code ?>"
+                   value="<?= htmlspecialcharsbx($val_intarget_code) ?>">
+        </tr>
+
+        <?php //endwhile; ?>
+
+        <? $tabControl->Buttons(); ?>
+
+        <input type="submit" name="save" value="<?= GetMessage("MAIN_SAVE") ?>"
+               title="<?= GetMessage("MAIN_OPT_SAVE_TITLE") ?>" class="adm-btn-save">
+        <input type="submit" name="restore" title="<?= GetMessage("MAIN_HINT_RESTORE_DEFAULTS") ?>"
+               OnClick="return confirm('<?= AddSlashes(GetMessage("MAIN_HINT_RESTORE_DEFAULTS_WARNING")) ?>')"
+               value="<?= GetMessage("MAIN_RESTORE_DEFAULTS") ?>">
+        <?= bitrix_sessid_post(); ?>
+
+        <? $tabControl->End(); ?>
+
+    </form>
+
+    <?php
+
+}
+
 ?>
-<form id="uptolike_form" method="post" action="<? echo $APPLICATION->GetCurPage()?>?mid=<?=urlencode($mid)?>&amp;lang=<? echo LANGUAGE_ID?>">
-
-<? $tabControl->BeginNextTab();?>
-
-	<tr class="heading">
-		<td colspan="2"><b><?=GetMessage('INTARGET_TAB_HEADER')?></b></td>
-	</tr>
-	<?
-	$stat_url = '';
-	if($INTARGET_MAIL and $INTARGET_KEY):
-		$auth = CUptolikeIntarget::userReg($INTARGET_MAIL,$INTARGET_KEY);
-	else: ?>
-	<div class="adm-info-message-wrap adm-info-message-red">
-		<div class="adm-info-message">
-			<?php echo GetMessage("INTARGET_TAB_MESS_2");?>
-			<div class="adm-info-message-icon"></div>
-		</div>
-	</div>
-	<?php endif;
-	if($auth['error']):?>
-	<div class="adm-info-message-wrap adm-info-message-red">
-		<div class="adm-info-message">
-			<?php echo $auth['error'];?>
-			<div class="adm-info-message-icon"></div>
-		</div>
-	</div>
-<?php endif;
-	if($auth['ok']):?>
-		<div class="adm-info-message-wrap adm-info-message-green">
-			<div class="adm-info-message">
-				<?php echo GetMessage("INTARGET_ID_SUCCESS");?>
-				<div class="adm-info-message-icon"></div>
-			</div>
-		</div>
-	<?php endif;?>
-	<input id="intarget_id" type="hidden" name="INTARGET_ID" value="<?=htmlspecialcharsbx($auth['ok'])?>"/>
-	<tr>
-		<td width="40%"><?=GetMessage("INTARGET_TAB_MAIL")?></td>
-		<td width="60%"><input id="uptolike_email" size="40" type="text" name="INTARGET_MAIL" value="<?=htmlspecialcharsbx($INTARGET_MAIL)?>"></td>
-	</tr>
-	<tr>
-		<td width="40%"><?=GetMessage("INTARGET_TAB_KEY")?></td>
-		<td  width="40%"><input id="uptolike_key" size="40" type="text" name="INTARGET_KEY" value="<?=htmlspecialcharsbx($INTARGET_KEY)?>"></td>
-	</tr>
-
-	<tr>
-		<td><?=GetMessage("INTARGET_TAB_TEXT1")?></td>
-	</tr>
-	<tr>
-		<td><?=GetMessage("INTARGET_TAB_TEXT2")?></td>
-	</tr>
-	<tr>
-		<td><?=GetMessage("INTARGET_TAB_TEXT3")?></td>
-	</tr>
-	<tr>
-		<td><?=GetMessage("INTARGET_TAB_TEXT4")?></td>
-	</tr>
-
-<? $tabControl->Buttons();?>
-	<input id="uptolike_form_update" type="submit" name="Update" value="<?=GetMessage("MAIN_SAVE")?>" title="<?=GetMessage("MAIN_OPT_SAVE_TITLE")?>" class="adm-btn-save">
-	<input id="uptolike_form_apply" type="submit" name="Apply" value="<?=GetMessage("MAIN_OPT_APPLY")?>" title="<?=GetMessage("MAIN_OPT_APPLY_TITLE")?>">
-	<? if(strlen($_REQUEST["back_url_settings"])>0):?>
-		<input type="button" name="Cancel" value="<?=GetMessage("MAIN_OPT_CANCEL")?>" title="<?=GetMessage("MAIN_OPT_CANCEL_TITLE")?>" onclick="window.location='<?=htmlspecialcharsbx(CUtil::addslashes($_REQUEST["back_url_settings"]))?>'">
-		<input type="hidden" name="back_url_settings" value="<?=htmlspecialcharsbx($_REQUEST["back_url_settings"])?>">
-	<? endif?>
-	<input type="submit" name="RestoreDefaults" title="<?=GetMessage("MAIN_HINT_RESTORE_DEFAULTS")?>" OnClick="return confirm('<? echo AddSlashes(GetMessage("MAIN_HINT_RESTORE_DEFAULTS_WARNING"))?>')" value="<?=GetMessage("MAIN_RESTORE_DEFAULTS")?>">
-	<?=bitrix_sessid_post();?>
-<? $tabControl->End();?>
-</form>
-<? endif;?>
