@@ -1,6 +1,6 @@
 <?
 $MESS["uptolike.intarget_MODULE_NAME"] = "inTarget eCommerce";
-$MESS["uptolike.intarget_MODULE_DESC"] = "inTarget.ru - ÑÐ¸ÑÑ‚ÐµÐ¼Ð° Ð°Ð½Ð°Ð»Ð¸Ñ‚Ð¸ÐºÐ¸ Ð´Ð»Ñ Ð¸Ð½Ñ‚ÐµÑ€Ð½ÐµÑ‚-Ð¼Ð°Ð³Ð°Ð·Ð¸Ð½Ð¾Ð², Ñ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ÑÑ‚ÑŒÑŽ Ð¾Ñ‚ÑÐ»ÐµÐ¶Ð¸Ð²Ð°Ñ‚ÑŒ Ð¿Ñ€Ð¾Ð´Ð°Ð¶Ð¸ Ð¸ Ð°Ð½Ð°Ð»Ð¸Ð·Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ ÐºÐ¾Ð½Ð²ÐµÑ€ÑÐ¸Ð¸ Ð² Ñ€ÐµÐ°Ð»ÑŒÐ½Ð¾Ð¼ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸.";
+$MESS["uptolike.intarget_MODULE_DESC"] = "inTarget.ru - ñèñòåìà àíàëèòèêè äëÿ èíòåðíåò-ìàãàçèíîâ, ñ âîçìîæíîñòüþ îòñëåæèâàòü ïðîäàæè è àíàëèçèðîâàòü êîíâåðñèè â ðåàëüíîì âðåìåíè.";
 $MESS["uptolike.intarget_PARTNER_NAME"] = "inTarget";
 $MESS["uptolike.intarget_PARTNER_URI"] = "http://intarget.ru/";
 ?>
