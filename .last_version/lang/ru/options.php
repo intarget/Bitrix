@@ -27,7 +27,7 @@ $MESS["INTARGET_TAB_MESS_7"] = "Ответ от сервера inTarget не п�
 
 $MESS["INTARGET_TAB_BTN_AUTORIZ"] = "Авторизация";
 
-$MESS["INTARGET_ID_SUCCESS"] = "Поздравляем, сайт успешно привязан к аккаунту <a href='https://intarget.ru'>inTarget</a>";
+$MESS["INTARGET_ID_SUCCESS"] = "Поздравляем, сайт успешно привязан к аккаунту inTarget";
 
 $MESS["INTARGET_TAB_MAIL_ILLEGAL_ARGUMENTS"] = "<span style='color:red;'>Email пустой или указан неверно.</span>";
 $MESS["INTARGET_TAB_MAIL_ALREADY_EXISTS"] = "<span style='color:red;'>Пользователь с таким email уже зарегистрирован, обратитесь в службу поддержки: <a href='mailto:uptolikeshare@gmail.com'>uptolikeshare@gmail.com</a></span>";
