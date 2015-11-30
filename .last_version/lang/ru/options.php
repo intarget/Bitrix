@@ -1,47 +1,47 @@
 <?
-$MESS["INTARGET_TAB_CONSTRUCTOR"] = "Конструктор";
-$MESS["INTARGET_TAB_CONSTRUCTOR_TITLE"] = "Конструктор кнопок";
+$MESS["INTARGET_TAB_CONSTRUCTOR"] = "РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ";
+$MESS["INTARGET_TAB_CONSTRUCTOR_TITLE"] = "РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРЅРѕРїРѕРє";
 
-$MESS["INTARGET_TAB_SETTINGS"] = "Настройки";
-$MESS["INTARGET_TAB_SETTINGS_TITLE"] = "Настройки";
+$MESS["INTARGET_TAB_SETTINGS"] = "РќР°СЃС‚СЂРѕР№РєРё";
+$MESS["INTARGET_TAB_SETTINGS_TITLE"] = "РќР°СЃС‚СЂРѕР№РєРё";
 
-$MESS["INTARGET_TAB_HEADER"] = "Оцените принципиально новый подход к просмотру статистики. Общайтесь со своей аудиторией, продавайте лучше, зарабатываейте больше.<br/>И всё это бесплатно!";
+$MESS["INTARGET_TAB_HEADER"] = "РћС†РµРЅРёС‚Рµ РїСЂРёРЅС†РёРїРёР°Р»СЊРЅРѕ РЅРѕРІС‹Р№ РїРѕРґС…РѕРґ Рє РїСЂРѕСЃРјРѕС‚СЂСѓ СЃС‚Р°С‚РёСЃС‚РёРєРё. РћР±С‰Р°Р№С‚РµСЃСЊ СЃРѕ СЃРІРѕРµР№ Р°СѓРґРёС‚РѕСЂРёРµР№, РїСЂРѕРґР°РІР°Р№С‚Рµ Р»СѓС‡С€Рµ, Р·Р°СЂР°Р±Р°С‚С‹РІР°РµР№С‚Рµ Р±РѕР»СЊС€Рµ.<br/>Р РІСЃС‘ СЌС‚Рѕ Р±РµСЃРїР»Р°С‚РЅРѕ!";
 
-$MESS["INTARGET_TAB_LANGUAGE"] = "Язык:";
-$MESS["INTARGET_LANGUAGE_RU"] = "Русский";
+$MESS["INTARGET_TAB_LANGUAGE"] = "РЇР·С‹Рє:";
+$MESS["INTARGET_LANGUAGE_RU"] = "Р СѓСЃСЃРєРёР№";
 
-$MESS["INTARGET_ERROR"] = "Ошибка";
+$MESS["INTARGET_ERROR"] = "РћС€РёР±РєР°";
 $MESS["INTARGET_MAIL"] = "Email";
-$MESS["INTARGET_KEY"] = "Ключ API";
+$MESS["INTARGET_KEY"] = "РљР»СЋС‡ API";
 $MESS["INTARGET_ID"] = "inTarget ID";
-$MESS["INTARGET_CODE"] = "JS Код";
+$MESS["INTARGET_CODE"] = "JS РљРѕРґ";
 
-$MESS["INTARGET_TAB_MESS_1"] = "Введите ваш адрес электронной почты сервиса intarget";
-$MESS["INTARGET_TAB_MESS_2"] = "Введите ваш ключ API";
+$MESS["INTARGET_TAB_MESS_1"] = "Р’РІРµРґРёС‚Рµ РІР°С€ Р°РґСЂРµСЃ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚С‹ СЃРµСЂРІРёСЃР° intarget";
+$MESS["INTARGET_TAB_MESS_2"] = "Р’РІРµРґРёС‚Рµ РІР°С€ РєР»СЋС‡ API";
 
-$MESS["INTARGET_TAB_MESS_3"] = "Введен неверный ключ! Убедитесь что вы скопировали ключ без лишних символов (пробелов и т.д.)";
-$MESS["INTARGET_TAB_MESS_4"] = "Невозможно создать проект. Возможно, он уже создан.";
-$MESS["INTARGET_TAB_MESS_5"] = "Данный email не зарегистрирован на сайте http://intarget.ru";
-$MESS["INTARGET_TAB_MESS_6"] = "Неверный формат данных.";
-$MESS["INTARGET_TAB_MESS_7"] = "Ответ от сервера inTarget не получен. Попробуйсте, пожалуйста, позднее.";
+$MESS["INTARGET_TAB_MESS_3"] = "Р’РІРµРґРµРЅ РЅРµРІРµСЂРЅС‹Р№ РєР»СЋС‡! РЈР±РµРґРёС‚РµСЃСЊ С‡С‚Рѕ РІС‹ СЃРєРѕРїРёСЂРѕРІР°Р»Рё РєР»СЋС‡ Р±РµР· Р»РёС€РЅРёС… СЃРёРјРІРѕР»РѕРІ (РїСЂРѕР±РµР»РѕРІ Рё С‚.Рґ.)";
+$MESS["INTARGET_TAB_MESS_4"] = "РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ РїСЂРѕРµРєС‚. Р’РѕР·РјРѕР¶РЅРѕ, РѕРЅ СѓР¶Рµ СЃРѕР·РґР°РЅ.";
+$MESS["INTARGET_TAB_MESS_5"] = "Р”Р°РЅРЅС‹Р№ email РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РЅР° СЃР°Р№С‚Рµ http://intarget.ru";
+$MESS["INTARGET_TAB_MESS_6"] = "РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РґР°РЅРЅС‹С….";
+$MESS["INTARGET_TAB_MESS_7"] = "РћС‚РІРµС‚ РѕС‚ СЃРµСЂРІРµСЂР° inTarget РЅРµ РїРѕР»СѓС‡РµРЅ. РџРѕРїСЂРѕР±СѓР№СЃС‚Рµ, РїРѕР¶Р°Р»СѓР№СЃС‚Р°, РїРѕР·РґРЅРµРµ.";
 
-$MESS["INTARGET_TAB_BTN_AUTORIZ"] = "Авторизация";
+$MESS["INTARGET_TAB_BTN_AUTORIZ"] = "РђРІС‚РѕСЂРёР·Р°С†РёСЏ";
 
-$MESS["INTARGET_ID_SUCCESS"] = "Поздравляем, сайт успешно привязан к аккаунту inTarget";
+$MESS["INTARGET_ID_SUCCESS"] = "РџРѕР·РґСЂР°РІР»СЏРµРј, СЃР°Р№С‚ СѓСЃРїРµС€РЅРѕ РїСЂРёРІСЏР·Р°РЅ Рє Р°РєРєР°СѓРЅС‚Сѓ inTarget";
 
-$MESS["INTARGET_TAB_MAIL_ILLEGAL_ARGUMENTS"] = "<span style='color:red;'>Email пустой или указан неверно.</span>";
-$MESS["INTARGET_TAB_MAIL_ALREADY_EXISTS"] = "<span style='color:red;'>Пользователь с таким email уже зарегистрирован, обратитесь в службу поддержки: <a href='mailto:uptolikeshare@gmail.com'>uptolikeshare@gmail.com</a></span>";
+$MESS["INTARGET_TAB_MAIL_ILLEGAL_ARGUMENTS"] = "<span style='color:red;'>Email РїСѓСЃС‚РѕР№ РёР»Рё СѓРєР°Р·Р°РЅ РЅРµРІРµСЂРЅРѕ.</span>";
+$MESS["INTARGET_TAB_MAIL_ALREADY_EXISTS"] = "<span style='color:red;'>РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ С‚Р°РєРёРј email СѓР¶Рµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ, РѕР±СЂР°С‚РёС‚РµСЃСЊ РІ СЃР»СѓР¶Р±Сѓ РїРѕРґРґРµСЂР¶РєРё: <a href='mailto:uptolikeshare@gmail.com'>uptolikeshare@gmail.com</a></span>";
 
-$MESS["INTARGET_TAB_TEXT1"] = "Введите email и ключ API из личного кабинета <a href='https://intarget.ru'>inTarget.ru</a>";
-$MESS["INTARGET_TAB_TEXT2"] = "Если вы ещё не зарегистрировались в сервисе inTarget это можно сделать по ссылке <a href='https://intarget.ru'>inTarget.ru</a>";
-$MESS["INTARGET_TAB_TEXT3"] = "Служба технической поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a>";
+$MESS["INTARGET_TAB_TEXT1"] = "Р’РІРµРґРёС‚Рµ email Рё РєР»СЋС‡ API РёР· Р»РёС‡РЅРѕРіРѕ РєР°Р±РёРЅРµС‚Р° <a href='https://intarget.ru'>inTarget.ru</a>";
+$MESS["INTARGET_TAB_TEXT2"] = "Р•СЃР»Рё РІС‹ РµС‰С‘ РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°Р»РёСЃСЊ РІ СЃРµСЂРІРёСЃРµ inTarget СЌС‚Рѕ РјРѕР¶РЅРѕ СЃРґРµР»Р°С‚СЊ РїРѕ СЃСЃС‹Р»РєРµ <a href='https://intarget.ru'>inTarget.ru</a>";
+$MESS["INTARGET_TAB_TEXT3"] = "РЎР»СѓР¶Р±Р° С‚РµС…РЅРёС‡РµСЃРєРѕР№ РїРѕРґРґРµСЂР¶РєРё: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a>";
 $MESS["INTARGET_TAB_TEXT4"] = "Bitrix inTarget ver.1.0.0";
 
-$MESS['CURL_DISABLED_MESSAGE'] = "Внимание! На хостинге не включена поддержка CURL. Она необходима для работы модуля.";
-$MESS['MAKE_REDIRECT_NO'] = "Нет";
-$MESS['MAKE_REDIRECT_YES'] = "Да";
+$MESS['CURL_DISABLED_MESSAGE'] = "Р’РЅРёРјР°РЅРёРµ! РќР° С…РѕСЃС‚РёРЅРіРµ РЅРµ РІРєР»СЋС‡РµРЅР° РїРѕРґРґРµСЂР¶РєР° CURL. РћРЅР° РЅРµРѕР±С…РѕРґРёРјР° РґР»СЏ СЂР°Р±РѕС‚С‹ РјРѕРґСѓР»СЏ.";
+$MESS['MAKE_REDIRECT_NO'] = "РќРµС‚";
+$MESS['MAKE_REDIRECT_YES'] = "Р”Р°";
 
-$MESS['OPTIONS_RESTORED'] = "Значения сброшены";
-$MESS['OPTIONS_SAVED'] = "Значения сохранены успешно";
-$MESS['ERROR_MAIL_EMPTY'] = "Значение уникального email должно быть заполнено";
-$MESS['ERROR_KEY_EMPTY'] = "Значение уникального ключа API должно быть заполнено";
+$MESS['OPTIONS_RESTORED'] = "Р—РЅР°С‡РµРЅРёСЏ СЃР±СЂРѕС€РµРЅС‹";
+$MESS['OPTIONS_SAVED'] = "Р—РЅР°С‡РµРЅРёСЏ СЃРѕС…СЂР°РЅРµРЅС‹ СѓСЃРїРµС€РЅРѕ";
+$MESS['ERROR_MAIL_EMPTY'] = "Р—РЅР°С‡РµРЅРёРµ СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ email РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅРѕ";
+$MESS['ERROR_KEY_EMPTY'] = "Р—РЅР°С‡РµРЅРёРµ СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ РєР»СЋС‡Р° API РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅРѕ";

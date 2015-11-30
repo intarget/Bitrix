@@ -6,7 +6,7 @@ if (!$USER->IsAdmin()) {
     return;
 }
 
-define('ADMIN_MODULE_NAME', 'uptulike.intarget');
+define('ADMIN_MODULE_NAME', 'uptolike.intarget');
 
 
 if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {

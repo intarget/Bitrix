@@ -26,17 +26,17 @@ Class uptolike_intarget extends CModule
 
 	function InstallDB($arParams = array())
 	{
-		RegisterModuleDependences('main', 'OnPageStart', self::MODULE_ID, 'CUptolikeShare', 'ini');
+		RegisterModuleDependences('main', 'OnPageStart', self::MODULE_ID, 'CUptolikeIntarget', 'ini');
 		return true;
 	}
 
 	function UnInstallDB($arParams = array())
 	{
-		COption::RemoveOption(self::MODULE_ID, "SHARE_MAIL");
-		COption::RemoveOption(self::MODULE_ID, "SHARE_KEY");
-		COption::RemoveOption(self::MODULE_ID, "MAIL_STATUS");
-		COption::RemoveOption(self::MODULE_ID, "KEY_OK");
-		UnRegisterModuleDependences('main', 'OnPageStart', self::MODULE_ID, 'CUptolikeShare', 'ini');
+		COption::RemoveOption(self::MODULE_ID, "intarget_id");
+		COption::RemoveOption(self::MODULE_ID, "intarget_mail");
+		COption::RemoveOption(self::MODULE_ID, "intarget_key");
+		COption::RemoveOption(self::MODULE_ID, "intarget_code");
+		UnRegisterModuleDependences('main', 'OnPageStart', self::MODULE_ID, 'CUptolikeIntarget', 'ini');
 		return true;
 	}
 

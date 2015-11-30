@@ -59,7 +59,8 @@ Class CUptolikeIntarget
 
     static public function jsCode($id)
     {
-        $jscode = "<script type='text/javascript'>
+        $jscode = "<!-- INTARGET CODE -->
+                <script type='text/javascript'>
                     (function(d, w, c) {
                       w[c] = {
                         projectId:" . $id . "
@@ -74,7 +75,9 @@ Class CUptolikeIntarget
                           d.addEventListener('DOMContentLoaded', f, false);
                       } else { f(); }
                     })(document, window, 'inTargetInit');
-                </script>";
+                    console.log('intarget_script');
+                </script>
+                <!-- /INTARGET CODE -->";
         return $jscode;
     }
 }

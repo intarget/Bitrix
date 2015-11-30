@@ -1,4 +1,6 @@
 <?
+CModule::IncludeModule("uptolike.intarget");
+
 CModule::AddAutoloadClasses(
 	"uptolike.intarget",
 	array(
