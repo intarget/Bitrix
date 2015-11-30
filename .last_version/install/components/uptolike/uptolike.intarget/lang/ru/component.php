@@ -1,3 +1,3 @@
 <?
-//$MESS["UPTOLIKE_SHARE"] = "Uptolike Ð²Ð¸Ð´Ð¶ÐµÑ‚";
+//$MESS["UPTOLIKE_SHARE"] = "Uptolike âèäæåò";
 ?>
