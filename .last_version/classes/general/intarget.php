@@ -7,11 +7,152 @@ Class CUptolikeIntarget
     function ini()
     {
         global $APPLICATION;
-        $dir = $APPLICATION->GetCurDir();
-        $dirs = explode('/', $dir);
-        if ($dirs[1] == 'bitrix') {
-            CJSCore::Init(array("jquery"));
+        $js_code = COption::GetOptionString("uptolike.intarget", "intarget_code");
+        $js_code = htmlspecialcharsBack($js_code);
+        if ($APPLICATION->get_cookie("INTARGET_REG") == 1) {
+            $js_code .= "<script>
+                    (function(w, c) {
+                        w[c] = w[c] || [];
+                        w[c].push(function(inTarget) {
+                            inTarget.event('user-reg');
+                        });
+                    })(window, 'inTargetCallbacks');
+                    console.log('user-reg');
+                    </script>";
+            $APPLICATION->set_cookie("INTARGET_REG", 0);
         }
+
+        if ($APPLICATION->get_cookie("INTARGET_ADD_ITEM") == 1) {
+            $js_code .= "<script>
+                    (function(w, c) {
+                        w[c] = w[c] || [];
+                        w[c].push(function(inTarget) {
+                            inTarget.event('add-to-cart');
+                        });
+                    })(window, 'inTargetCallbacks');
+                    console.log('add-to-cart');
+                    </script>";
+        }
+
+        if ($APPLICATION->get_cookie("INTARGET_DEL_ITEM") == 1) {
+            $js_code .= "<script>
+                    (function(w, c) {
+                        w[c] = w[c] || [];
+                        w[c].push(function(inTarget) {
+                            inTarget.event('del-from-cart');
+                        });
+                    })(window, 'inTargetCallbacks');
+                    console.log('del-from-cart');
+                    </script>";
+        }
+
+        $APPLICATION->AddHeadString($js_code, true);
+        $APPLICATION->set_cookie("INTARGET_ADD_ITEM", 0);
+        $APPLICATION->set_cookie("INTARGET_DEL_ITEM", 0);
+    }
+
+    //просмотр товара
+    static function productView($arResult)
+    {
+        if ($arResult["ID"] != "")
+            $arResult["PRODUCT_ID"] = $arResult["ID"];
+
+        if (class_exists("DataManager"))
+            return false;
+
+        global $APPLICATION;
+
+        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
+
+        if (!$intarget_id)
+            return true;
+
+        $js_code = "<script>
+                    (function(w, c) {
+                        w[c] = w[c] || [];
+                        w[c].push(function(inTarget) {
+                            inTarget.event('item-view');
+                        });
+                    })(window, 'inTargetCallbacks');
+                    console.log('item-view');
+                    </script>";
+        $APPLICATION->AddHeadString($js_code, true);
+        return true;
+    }
+
+    static function updateCart($id, $arFields = false) {
+        $js_code = "<script>
+                    (function() {
+                       inTarget.event('cart_update');
+                    })(window, 'inTargetCallbacks');
+                    console.log('cart_update');
+                    </script>";
+        echo $js_code;
+        return;
+
+    }
+
+    static function addToCart($id, $arFields)
+    {
+//        global $APPLICATION;
+//        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
+//
+//        if (!$intarget_id)
+//            return true;
+//
+//        $APPLICATION->set_cookie("INTARGET_ADD_ITEM", 1);
+//        return true;
+        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
+
+        if (!$intarget_id)
+            return true;
+
+        $js_code = "<script>
+                    (function() {
+                       inTarget.event('add-to-cart');
+                    })(window, 'inTargetCallbacks');
+                    console.log('add-to-cart');
+                    </script>";
+        echo $js_code;
+        return;
+    }
+
+    //удаление из корзины
+    static function deleteFromCart($ID, &$arFields)
+    {
+        global $APPLICATION;
+        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
+
+        if (!$intarget_id)
+            return true;
+
+        $APPLICATION->set_cookie("INTARGET_DEL_ITEM", 1);
+        return true;
+//        global $APPLICATION;
+//        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
+//
+//        if (!$intarget_id)
+//            return true;
+//
+//        $APPLICATION->set_cookie("INTARGET_DEL_ITEM", 1);
+//        return true;
+    }
+
+    //цель регистрация пользователя
+    function OnAfterUserRegister(&$arFields)
+    {
+        // если регистрация успешна то
+        if ($arFields["USER_ID"] > 0) {
+            global $APPLICATION;
+            $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
+
+            if (!$intarget_id)
+                return true;
+
+            $APPLICATION->set_cookie("INTARGET_REG", 1);
+            return true;
+        }
+        return true;
     }
 
     static public function userReg($email, $key)
