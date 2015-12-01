@@ -1,6 +1,5 @@
 <?
-$MESS["INTARGET_TAB_CONSTRUCTOR"] = "Конструктор";
-$MESS["INTARGET_TAB_CONSTRUCTOR_TITLE"] = "Конструктор кнопок";
+$MESS["INTARGET_TITLE"] = "inTarget";
 
 $MESS["INTARGET_TAB_SETTINGS"] = "Настройки";
 $MESS["INTARGET_TAB_SETTINGS_TITLE"] = "Настройки";
@@ -16,7 +15,7 @@ $MESS["INTARGET_KEY"] = "Ключ API";
 $MESS["INTARGET_ID"] = "inTarget ID";
 $MESS["INTARGET_CODE"] = "JS Код";
 
-$MESS["INTARGET_TAB_MESS_1"] = "Введите ваш адрес электронной почты сервиса intarget";
+$MESS["INTARGET_TAB_MESS_1"] = "Введите ваш адрес электронной почты сервиса inTarget";
 $MESS["INTARGET_TAB_MESS_2"] = "Введите ваш ключ API";
 
 $MESS["INTARGET_TAB_MESS_3"] = "Введен неверный ключ! Убедитесь что вы скопировали ключ без лишних символов (пробелов и т.д.)";
@@ -32,10 +31,11 @@ $MESS["INTARGET_ID_SUCCESS"] = "Поздравляем, сайт успешно привязан к аккаунту in
 $MESS["INTARGET_TAB_MAIL_ILLEGAL_ARGUMENTS"] = "<span style='color:red;'>Email пустой или указан неверно.</span>";
 $MESS["INTARGET_TAB_MAIL_ALREADY_EXISTS"] = "<span style='color:red;'>Пользователь с таким email уже зарегистрирован, обратитесь в службу поддержки: <a href='mailto:uptolikeshare@gmail.com'>uptolikeshare@gmail.com</a></span>";
 
-$MESS["INTARGET_TAB_TEXT1"] = "Введите email и ключ API из личного кабинета <a href='https://intarget.ru'>inTarget.ru</a>";
-$MESS["INTARGET_TAB_TEXT2"] = "Если вы ещё не зарегистрировались в сервисе inTarget это можно сделать по ссылке <a href='https://intarget.ru'>inTarget.ru</a>";
-$MESS["INTARGET_TAB_TEXT3"] = "Служба технической поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a>";
-$MESS["INTARGET_TAB_TEXT4"] = "Bitrix inTarget ver.1.0.0";
+$MESS["INTARGET_TAB_TEXT1"] = "Введите email и ключ API из личного кабинета";
+$MESS["INTARGET_TAB_TEXT2"] = "Если вы ещё не зарегистрировались в сервисе inTarget это можно сделать по ссылке";
+$MESS["INTARGET_TAB_TEXT3"] = "Войдите в личный кабинет для просмотра статистики";
+$MESS["INTARGET_TAB_TEXT4"] = "Служба технической поддержки:";
+$MESS["INTARGET_TAB_TEXT5"] = "Bitrix inTarget ver.1.0.0";
 
 $MESS['CURL_DISABLED_MESSAGE'] = "Внимание! На хостинге не включена поддержка CURL. Она необходима для работы модуля.";
 $MESS['MAKE_REDIRECT_NO'] = "Нет";

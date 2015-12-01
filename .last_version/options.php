@@ -156,6 +156,19 @@ if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
                    value="<?= htmlspecialcharsbx($val_intarget_code) ?>">
         </tr>
 
+        <tr>
+            <td colspan="2">
+                <? if(!empty($val_intarget_id)):?>
+                    <?= GetMessage("INTARGET_TAB_TEXT3") ?> <a href="https://intarget.ru"><?= GetMessage("INTARGET_TITLE") ?></a><br><br>
+                <? else:?>
+                    <?= GetMessage("INTARGET_TAB_TEXT1") ?> <a href="https://intarget.ru"><?= GetMessage("INTARGET_TITLE") ?></a><br><br>
+                    <?= GetMessage("INTARGET_TAB_TEXT2") ?> <a href="https://intarget.ru"><?= GetMessage("INTARGET_TITLE") ?></a><br><br>
+                <?endif;?>
+                <?= GetMessage("INTARGET_TAB_TEXT4") ?> <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a><br><br>
+                <?= GetMessage("INTARGET_TAB_TEXT5") ?><br><br>
+            </td>
+        </tr>
+
         <? $tabControl->Buttons(); ?>
 
         <input type="submit" name="save" value="<?= GetMessage("MAIN_SAVE") ?>"
