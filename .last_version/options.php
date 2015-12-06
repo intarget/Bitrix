@@ -181,7 +181,14 @@ if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
         <? $tabControl->End(); ?>
 
     </form>
-
+    <style>
+        .adm-detail-content-table > tbody > .heading td {
+            text-align: left!important;
+        }
+        .adm-detail-content-table > tbody > .heading td > b{
+            font-weight: normal!important;
+        }
+        </style>
     <?php
 
 }

@@ -5,7 +5,7 @@ use Bitrix\Main\Page\Asset;
 
 Class CUptolikeIntarget
 {
-    function ini()
+    function ini($arParams)
     {
         global $APPLICATION;
         $js_code = COption::GetOptionString("uptolike.intarget", "intarget_code");
@@ -27,21 +27,47 @@ Class CUptolikeIntarget
 
             document.addEventListener("click", function(event){
                 var current = event.srcElement || event.currentTarget || event.target;
-                if (current.href.match("action=delete")) {
+                if (current.href && current.href.match("action=delete")) {
                         inTarget.event("del-from-cart");
                         alert("del-from-cart");
                 }
             });
+
+            document.addEventListener("click", function(event){
+                var current = event.srcElement || event.currentTarget || event.target;
+                if (current.className == "checkout")
+                {
+                    inTarget.event("success-order");
+                    console.log("success-order");
+                }
+});
         </script>';
 
             Asset::getInstance()->addString($js_code);
+            //просмотр каталога
+            if (CModule::IncludeModule("catalog")) {
+                global $APPLICATION;
+                $dir = $APPLICATION->GetCurDir();
+                $dirs = explode('/', $dir);
+                if(($dirs[1] == 'e-store' || $dirs[1] == 'catalog') && empty($dirs[4])) {
+                    $js_code = '<script>
+                        (function(w, c) {
+                            w[c] = w[c] || [];
+                            w[c].push(function(inTarget) {
+                                inTarget.event("cat-view");
+                                console.log("cat-view");
+                            });
+                        })(window, "inTargetCallbacks");
+                    </script>';
+                    Asset::getInstance()->addString($js_code);
+                }
+            }
         }
     }
 
     //просмотр товара
     static function productView($arResult)
     {
-        global $APPLICATION;
         $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
         if (!$intarget_id)
             return true;
@@ -63,7 +89,6 @@ Class CUptolikeIntarget
     {
         // если регистрация успешна то
         if ($arFields["USER_ID"] > 0) {
-            global $APPLICATION;
             $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
 
             if (!$intarget_id)
@@ -74,7 +99,6 @@ Class CUptolikeIntarget
                             console.log('user-reg');
                     </script>";
             Asset::getInstance()->addString($js_code);
-            return $arFields;
         }
         return $arFields;
     }
