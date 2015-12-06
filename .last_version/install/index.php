@@ -38,19 +38,7 @@ Class uptolike_intarget extends CModule
 		RegisterModule($this->MODULE_ID);
 		RegisterModuleDependences("main", "OnPageStart", $this->MODULE_ID, "CUptolikeIntarget", "ini");
 		RegisterModuleDependences("sale", "OnBeforeViewedAdd", $this->MODULE_ID, "CUptolikeIntarget", "productView");
-
-		RegisterModuleDependences("sale", "OnBeforeBasketAdd", $this->MODULE_ID, "CUptolikeIntarget", "addToCart");
-		RegisterModuleDependences("sale", "OnBasketAdd", $this->MODULE_ID, "CUptolikeIntarget", "addToCart");
-		RegisterModuleDependences("sale", "OnBasketUpdate", $this->MODULE_ID, "CUptolikeIntarget", "addToCart");
-		RegisterModuleDependences("sale", "OnSaleBasketSaved", $this->MODULE_ID, "CUptolikeIntarget", "addToCart");
-
-		RegisterModuleDependences("sale", "OnBasketDelete", $this->MODULE_ID, "CUptolikeIntarget", "deleteFromCart");
 		RegisterModuleDependences("main", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegister");
-//		RegisterModuleDependences("sale", "OnBasketOrder", $this->MODULE_ID, "CUptolikeIntarget", "updateCart", "100");
-//		RegisterModuleDependences("sale", "OnBasketUpdate", $this->MODULE_ID, "CUptolikeIntarget", "updateCart", "100");
-//		RegisterModuleDependences("sale", "OnSaleBasketSaved", $this->MODULE_ID, "CUptolikeIntarget", "updateCart", "100");
-
-
 		$this->InstallFiles();
 		$this->InstallDB();
 	}
@@ -58,17 +46,7 @@ Class uptolike_intarget extends CModule
 	public function DoUninstall() {
 		UnRegisterModuleDependences('main', 'OnPageStart', self::MODULE_ID, 'CUptolikeIntarget', 'ini');
 		UnRegisterModuleDependences("main", "OnBeforeViewedAdd", $this->MODULE_ID, "CUptolikeIntarget", "productView");
-
-		UnRegisterModuleDependences("sale", "OnBeforeBasketAdd", $this->MODULE_ID, "CUptolikeIntarget", "addToCart");
-		UnRegisterModuleDependences("sale", "OnBasketAdd", $this->MODULE_ID, "CUptolikeIntarget", "addToCart");
-		UnRegisterModuleDependences("sale", "OnBasketUpdate", $this->MODULE_ID, "CUptolikeIntarget", "addToCart");
-		UnRegisterModuleDependences("sale", "OnSaleBasketSaved", $this->MODULE_ID, "CUptolikeIntarget", "addToCart");
-
-		UnRegisterModuleDependences("sale", "OnBasketDelete", $this->MODULE_ID, "CUptolikeIntarget", "deleteFromCart");
 		UnRegisterModuleDependences("main", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegister");
-//		UnRegisterModuleDependences("sale", "OnBasketUpdate", $this->MODULE_ID, "CUptolikeIntarget", "updateCart");
-//		UnRegisterModuleDependences("sale", "OnSaleBasketSaved", $this->MODULE_ID, "CUptolikeIntarget", "newEventUpdateCart");
-//		UnRegisterModuleDependences("sale", "OnSaleBasketItemSetField", $this->MODULE_ID, "CUptolikeIntarget", "newEventSetQtyCart");
 
 		COption::RemoveOption(self::MODULE_ID, "intarget_id");
 		COption::RemoveOption(self::MODULE_ID, "intarget_mail");
@@ -80,7 +58,6 @@ Class uptolike_intarget extends CModule
 	}
 
 	function InstallFiles() {
-
 		return true;
 	}
 }

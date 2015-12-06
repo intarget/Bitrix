@@ -1,6 +1,7 @@
 <?
-/** var CMain $APPLICATION */
 IncludeModuleLangFile(__FILE__);
+
+use Bitrix\Main\Page\Asset;
 
 Class CUptolikeIntarget
 {
@@ -9,133 +10,52 @@ Class CUptolikeIntarget
         global $APPLICATION;
         $js_code = COption::GetOptionString("uptolike.intarget", "intarget_code");
         $js_code = htmlspecialcharsBack($js_code);
-        if ($APPLICATION->get_cookie("INTARGET_REG") == 1) {
-            $js_code .= "<script>
-                    (function(w, c) {
-                        w[c] = w[c] || [];
-                        w[c].push(function(inTarget) {
-                            inTarget.event('user-reg');
-                        });
-                    })(window, 'inTargetCallbacks');
-                    console.log('user-reg');
-                    </script>";
-            $APPLICATION->set_cookie("INTARGET_REG", 0);
-        }
 
-        if ($APPLICATION->get_cookie("INTARGET_ADD_ITEM") == 1) {
-            $js_code .= "<script>
-                    (function(w, c) {
-                        w[c] = w[c] || [];
-                        w[c].push(function(inTarget) {
-                            inTarget.event('add-to-cart');
-                        });
-                    })(window, 'inTargetCallbacks');
-                    console.log('add-to-cart');
-                    </script>";
-        }
+        if(!empty($js_code)) {
+            $APPLICATION->AddHeadString($js_code, true);
+            $js_code = '<script type="text/javascript">
+            document.addEventListener("click", function(event){
+                var current = event.srcElement || event.currentTarget || event.target;
+                if (current.id.match("buy_link")) {
+                    var productMatches = current.id.match(/([0-9]+)_buy_link/);
+                    if (productMatches) {
+                        inTarget.event("add-to-cart");
+                        console.log("add-to-cart");
+                    }
+                }
+            });
 
-        if ($APPLICATION->get_cookie("INTARGET_DEL_ITEM") == 1) {
-            $js_code .= "<script>
-                    (function(w, c) {
-                        w[c] = w[c] || [];
-                        w[c].push(function(inTarget) {
-                            inTarget.event('del-from-cart');
-                        });
-                    })(window, 'inTargetCallbacks');
-                    console.log('del-from-cart');
-                    </script>";
-        }
+            document.addEventListener("click", function(event){
+                var current = event.srcElement || event.currentTarget || event.target;
+                if (current.href.match("action=delete")) {
+                        inTarget.event("del-from-cart");
+                        alert("del-from-cart");
+                }
+            });
+        </script>';
 
-        $APPLICATION->AddHeadString($js_code, true);
-        $APPLICATION->set_cookie("INTARGET_ADD_ITEM", 0);
-        $APPLICATION->set_cookie("INTARGET_DEL_ITEM", 0);
+            Asset::getInstance()->addString($js_code);
+        }
     }
 
     //просмотр товара
     static function productView($arResult)
     {
-        if ($arResult["ID"] != "")
-            $arResult["PRODUCT_ID"] = $arResult["ID"];
-
-        if (class_exists("DataManager"))
-            return false;
-
         global $APPLICATION;
-
         $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
-
         if (!$intarget_id)
             return true;
-
         $js_code = "<script>
                     (function(w, c) {
                         w[c] = w[c] || [];
                         w[c].push(function(inTarget) {
                             inTarget.event('item-view');
+                            console.log('item-view');
                         });
                     })(window, 'inTargetCallbacks');
-                    console.log('item-view');
                     </script>";
-        $APPLICATION->AddHeadString($js_code, true);
+        Asset::getInstance()->addString($js_code);
         return true;
-    }
-
-    static function updateCart($id, $arFields = false) {
-        $js_code = "<script>
-                    (function() {
-                       inTarget.event('cart_update');
-                    })(window, 'inTargetCallbacks');
-                    console.log('cart_update');
-                    </script>";
-        echo $js_code;
-        return;
-
-    }
-
-    static function addToCart($id, $arFields)
-    {
-//        global $APPLICATION;
-//        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
-//
-//        if (!$intarget_id)
-//            return true;
-//
-//        $APPLICATION->set_cookie("INTARGET_ADD_ITEM", 1);
-//        return true;
-        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
-
-        if (!$intarget_id)
-            return true;
-
-        $js_code = "<script>
-                    (function() {
-                       inTarget.event('add-to-cart');
-                    })(window, 'inTargetCallbacks');
-                    console.log('add-to-cart');
-                    </script>";
-        echo $js_code;
-        return;
-    }
-
-    //удаление из корзины
-    static function deleteFromCart($ID, &$arFields)
-    {
-        global $APPLICATION;
-        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
-
-        if (!$intarget_id)
-            return true;
-
-        $APPLICATION->set_cookie("INTARGET_DEL_ITEM", 1);
-        return true;
-//        global $APPLICATION;
-//        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
-//
-//        if (!$intarget_id)
-//            return true;
-//
-//        $APPLICATION->set_cookie("INTARGET_DEL_ITEM", 1);
-//        return true;
     }
 
     //цель регистрация пользователя
@@ -147,12 +67,16 @@ Class CUptolikeIntarget
             $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
 
             if (!$intarget_id)
-                return true;
+                return $arFields;
 
-            $APPLICATION->set_cookie("INTARGET_REG", 1);
-            return true;
+            $js_code = "<script>
+                            inTarget.event('user-reg');
+                            console.log('user-reg');
+                    </script>";
+            Asset::getInstance()->addString($js_code);
+            return $arFields;
         }
-        return true;
+        return $arFields;
     }
 
     static public function userReg($email, $key)
