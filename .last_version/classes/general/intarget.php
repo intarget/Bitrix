@@ -11,7 +11,7 @@ Class CUptolikeIntarget
         $js_code = COption::GetOptionString("uptolike.intarget", "intarget_code");
         $js_code = htmlspecialcharsBack($js_code);
 
-        if(!empty($js_code)) {
+        if (!empty($js_code)) {
             $APPLICATION->AddHeadString($js_code, true);
             $js_code = '<script type="text/javascript">
             document.addEventListener("click", function(event){
@@ -49,7 +49,7 @@ Class CUptolikeIntarget
                 global $APPLICATION;
                 $dir = $APPLICATION->GetCurDir();
                 $dirs = explode('/', $dir);
-                if(($dirs[1] == 'e-store' || $dirs[1] == 'catalog') && empty($dirs[4])) {
+                if (($dirs[1] == 'e-store' && empty($dirs[4])) || ($dirs[1] == 'catalog' && empty($dirs[3]))) {
                     $js_code = '<script>
                         (function(w, c) {
                             w[c] = w[c] || [];
@@ -62,6 +62,20 @@ Class CUptolikeIntarget
                     Asset::getInstance()->addString($js_code);
                 }
             }
+
+            if ($APPLICATION->get_cookie("INTARGET_REG_SUCCESS") == "Y") {
+                $js_code = "<script>
+                        (function(w, c) {
+                            w[c] = w[c] || [];
+                            w[c].push(function(inTarget) {
+                                inTarget.event('user-reg');
+                                console.log('user-reg');
+                            });
+                        })(window, 'inTargetCallbacks');
+                    </script>";
+                Asset::getInstance()->addString($js_code);
+                $APPLICATION->set_cookie("INTARGET_REG_SUCCESS", "N");
+            }
         }
     }
 
@@ -70,7 +84,7 @@ Class CUptolikeIntarget
     {
         $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
         if (!$intarget_id)
-            return true;
+            return;
         $js_code = "<script>
                     (function(w, c) {
                         w[c] = w[c] || [];
@@ -81,7 +95,7 @@ Class CUptolikeIntarget
                     })(window, 'inTargetCallbacks');
                     </script>";
         Asset::getInstance()->addString($js_code);
-        return true;
+        return $arResult;
     }
 
     //цель регистрация пользователя
@@ -92,15 +106,11 @@ Class CUptolikeIntarget
             $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
 
             if (!$intarget_id)
-                return $arFields;
+                return;
 
-            $js_code = "<script>
-                            inTarget.event('user-reg');
-                            console.log('user-reg');
-                    </script>";
-            Asset::getInstance()->addString($js_code);
+            global $APPLICATION;
+            $APPLICATION->set_cookie("INTARGET_REG_SUCCESS", "Y", time() + 60);
         }
-        return $arFields;
     }
 
     static public function userReg($email, $key)
