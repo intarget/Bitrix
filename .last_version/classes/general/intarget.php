@@ -32,15 +32,6 @@ Class CUptolikeIntarget
                         alert("del-from-cart");
                 }
             });
-
-            document.addEventListener("click", function(event){
-                var current = event.srcElement || event.currentTarget || event.target;
-                if (current.className == "checkout")
-                {
-                    inTarget.event("success-order");
-                    console.log("success-order");
-                }
-});
         </script>';
 
             Asset::getInstance()->addString($js_code);
@@ -75,6 +66,24 @@ Class CUptolikeIntarget
                     </script>";
                 Asset::getInstance()->addString($js_code);
                 $APPLICATION->set_cookie("INTARGET_REG_SUCCESS", "N");
+            }
+
+
+            if (!empty($_GET['ORDER_ID'])) {
+                $js_code = "<script>
+                        (function(w, c) {
+                            var x = document.cookie;
+                            if(!x.match(\"intargetorder=" . $_GET['ORDER_ID'] . "\")) {
+                                w[c] = w[c] || [];
+                                w[c].push(function(inTarget) {
+                                    inTarget.event('success-order');
+                                    console.log('success-order');
+                                });
+                            }
+                        })(window, 'inTargetCallbacks');
+                        document.cookie = \"intargetorder=" . $_GET['ORDER_ID'] . "\";
+                    </script>";
+                Asset::getInstance()->addString($js_code);
             }
         }
     }

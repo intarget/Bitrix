@@ -39,13 +39,14 @@ Class uptolike_intarget extends CModule
 		RegisterModuleDependences("main", "OnPageStart", $this->MODULE_ID, "CUptolikeIntarget", "ini");
 		RegisterModuleDependences("sale", "OnBeforeViewedAdd", $this->MODULE_ID, "CUptolikeIntarget", "productView");
 		RegisterModuleDependences("main", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegister");
+
 		$this->InstallFiles();
 		$this->InstallDB();
 	}
 
 	public function DoUninstall() {
 		UnRegisterModuleDependences('main', 'OnPageStart', self::MODULE_ID, 'CUptolikeIntarget', 'ini');
-		UnRegisterModuleDependences("main", "OnBeforeViewedAdd", $this->MODULE_ID, "CUptolikeIntarget", "productView");
+		UnRegisterModuleDependences("sale", "OnBeforeViewedAdd", $this->MODULE_ID, "CUptolikeIntarget", "productView");
 		UnRegisterModuleDependences("main", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegister");
 
 		COption::RemoveOption(self::MODULE_ID, "intarget_id");
