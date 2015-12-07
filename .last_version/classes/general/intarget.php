@@ -80,11 +80,13 @@ Class CUptolikeIntarget
     }
 
     //просмотр товара
-    static function productView($arResult)
+    static function productView()
     {
         $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
         if (!$intarget_id)
             return;
+
+        global $APPLICATION;
         $js_code = "<script>
                     (function(w, c) {
                         w[c] = w[c] || [];
@@ -94,8 +96,8 @@ Class CUptolikeIntarget
                         });
                     })(window, 'inTargetCallbacks');
                     </script>";
-        Asset::getInstance()->addString($js_code);
-        return $arResult;
+//        Asset::getInstance()->addString($js_code);
+        $APPLICATION->AddHeadString($js_code, true);
     }
 
     //цель регистрация пользователя
