@@ -137,6 +137,9 @@ if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
             <td width="60%">
                 <input type="text" size="50" name="<?= $intarget_mail ?>"
                        value="<?= $val_intarget_mail; ?>">
+            <? if(!empty($val_intarget_id)):?>
+                <div style="background-image: url('../images/<?=ADMIN_MODULE_NAME?>/ok.png');width: 16px;height: 16px;margin: -4px -22px;display: inline-block;"></div>
+            <?endif;?>
             </td>
         </tr>
 
@@ -146,6 +149,9 @@ if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
             <td width="60%">
                 <input type="text" size="50" name="<?= $intarget_key ?>"
                        value="<?= $val_intarget_key; ?>">
+                <? if(!empty($val_intarget_id)):?>
+                    <div style="background-image: url('../images/<?=ADMIN_MODULE_NAME?>/ok.png');width: 16px;height: 16px;margin: -4px -22px;display: inline-block;"></div>
+                <?endif;?>
             </td>
         </tr>
 

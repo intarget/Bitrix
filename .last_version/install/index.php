@@ -58,6 +58,19 @@ Class uptolike_intarget extends CModule
 	}
 
 	function InstallFiles() {
+		if (is_dir($p = $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/'.self::MODULE_ID.'/install/images'))
+		{
+			if ($dir = opendir($p))
+			{
+				while (false !== $item = readdir($dir))
+				{
+					if ($item == '..' || $item == '.')
+						continue;
+					CopyDirFiles($p.'/'.$item, $_SERVER['DOCUMENT_ROOT'].'/bitrix/images/'.self::MODULE_ID.'/'.$item, $ReWrite = True, $Recursive = True);
+				}
+				closedir($dir);
+			}
+		}
 		return true;
 	}
 }
