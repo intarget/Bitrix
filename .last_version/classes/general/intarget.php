@@ -19,9 +19,9 @@ Class CUptolikeIntarget
                 if (current.id.match("buy_link")) {
                     var productMatches = current.id.match(/([0-9]+)_buy_link/);
                     if (productMatches) {
-                        inTarget.event("add-to-cart");
-                        console.log("add-to-cart");
-                    }
+                            inTarget.event("add-to-cart");
+                            console.log("add-to-cart");
+                     }
                 }
             });
 
@@ -68,35 +68,31 @@ Class CUptolikeIntarget
                 $APPLICATION->set_cookie("INTARGET_REG_SUCCESS", "N");
             }
 
-
-            if (!empty($_GET['ORDER_ID'])) {
+            if ($APPLICATION->get_cookie("INTARGET_ORDER_SUCCESS") == "Y") {
                 $js_code = "<script>
                         (function(w, c) {
-                            var x = document.cookie;
-                            if(!x.match(\"intargetorder=" . $_GET['ORDER_ID'] . "\")) {
-                                w[c] = w[c] || [];
-                                w[c].push(function(inTarget) {
-                                    inTarget.event('success-order');
-                                    console.log('success-order');
-                                });
-                            }
+                            w[c] = w[c] || [];
+                            w[c].push(function(inTarget) {
+                                inTarget.event('success-order');
+                                console.log('success-order');
+                            });
                         })(window, 'inTargetCallbacks');
-                        document.cookie = \"intargetorder=" . $_GET['ORDER_ID'] . "\";
                     </script>";
                 Asset::getInstance()->addString($js_code);
+                $APPLICATION->set_cookie("INTARGET_ORDER_SUCCESS", "N");
             }
         }
     }
 
     //просмотр товара
-    static function productView()
+    static function productView($arResult, $user_id = false)
     {
-        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
-        if (!$intarget_id)
-            return;
-
-        global $APPLICATION;
-        $js_code = "<script>
+        if (!empty($arResult['PRODUCT_ID'])) {
+            $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
+            if (!$intarget_id)
+                return;
+            $js_code = "<script>alert('item-view')</script>";
+            $js_code .= "<script>
                     (function(w, c) {
                         w[c] = w[c] || [];
                         w[c].push(function(inTarget) {
@@ -104,24 +100,42 @@ Class CUptolikeIntarget
                             console.log('item-view');
                         });
                     })(window, 'inTargetCallbacks');
+
                     </script>";
-//        Asset::getInstance()->addString($js_code);
-        $APPLICATION->AddHeadString($js_code, true);
+            Asset::getInstance()->addString($js_code);
+            //$APPLICATION->AddHeadString($js_code, true);
+        }
+    }
+
+    static function order($ID)
+    {
+        $arOrder = CSaleOrder::GetByID(intval($ID));
+        $filter = Array("EMAIL" => $arOrder['USER_EMAIL']);
+        $rsUsers = CUser::GetList(($by = "id"), ($order = "desc"), $filter);
+        $res = $rsUsers->Fetch();
+        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
+
+        if (!$intarget_id)
+            return;
+        global $APPLICATION;
+        $APPLICATION->set_cookie("INTARGET_ORDER_SUCCESS", "Y", time() + 60);
+
+        //регистрация нового пользователя при оформлении заказа
+        if ($res['LAST_LOGIN'] == $res['DATE_REGISTER']) {
+            $APPLICATION->set_cookie("INTARGET_REG_SUCCESS", "Y", time() + 60);
+        }
     }
 
     //цель регистрация пользователя
-    function OnAfterUserRegister(&$arFields)
+    function OnAfterUserRegisterHandler(&$arFields)
     {
-        // если регистрация успешна то
-        if ($arFields["USER_ID"] > 0) {
-            $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
+        $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
 
-            if (!$intarget_id)
-                return;
+        if (!$intarget_id)
+            return;
 
-            global $APPLICATION;
-            $APPLICATION->set_cookie("INTARGET_REG_SUCCESS", "Y", time() + 60);
-        }
+        global $APPLICATION;
+        $APPLICATION->set_cookie("INTARGET_REG_SUCCESS", "Y", time() + 60);
     }
 
     static public function userReg($email, $key)
