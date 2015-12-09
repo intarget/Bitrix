@@ -37,8 +37,10 @@ Class uptolike_intarget extends CModule
 	public function DoInstall() {
 		RegisterModule($this->MODULE_ID);
 		RegisterModuleDependences("main", "OnPageStart", $this->MODULE_ID, "CUptolikeIntarget", "ini");
-		RegisterModuleDependences("sale", "OnBeforeViewedAdd", $this->MODULE_ID, "CUptolikeIntarget", "productView");
-		RegisterModuleDependences("main", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegister");
+		RegisterModuleDependences("sale", "OnBasketOrder", $this->MODULE_ID, "CUptolikeIntarget", "order", "100");
+		RegisterModuleDependences("sale", "OnBeforeViewedAdd", $this->MODULE_ID, "CUptolikeIntarget", "productView", "100");
+		RegisterModuleDependences("main", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegisterHandler", "100");
+		RegisterModuleDependences("sale", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegisterHandler", "100");
 
 		$this->InstallFiles();
 		$this->InstallDB();
@@ -47,7 +49,9 @@ Class uptolike_intarget extends CModule
 	public function DoUninstall() {
 		UnRegisterModuleDependences('main', 'OnPageStart', self::MODULE_ID, 'CUptolikeIntarget', 'ini');
 		UnRegisterModuleDependences("sale", "OnBeforeViewedAdd", $this->MODULE_ID, "CUptolikeIntarget", "productView");
-		UnRegisterModuleDependences("main", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegister");
+		UnRegisterModuleDependences("sale", "OnBasketOrder", $this->MODULE_ID, "CUptolikeIntarget", "order");
+		UnRegisterModuleDependences("main", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegisterHandler");
+		UnRegisterModuleDependences("sale", "OnAfterUserRegister", $this->MODULE_ID, "CUptolikeIntarget", "OnAfterUserRegisterHandler");
 
 		COption::RemoveOption(self::MODULE_ID, "intarget_id");
 		COption::RemoveOption(self::MODULE_ID, "intarget_mail");
