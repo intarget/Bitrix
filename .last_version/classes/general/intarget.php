@@ -29,7 +29,7 @@ Class CUptolikeIntarget
                 var current = event.srcElement || event.currentTarget || event.target;
                 if (current.href && current.href.match("action=delete")) {
                         inTarget.event("del-from-cart");
-                        alert("del-from-cart");
+                         console.log("del-from-cart");
                 }
             });
         </script>';
@@ -47,6 +47,24 @@ Class CUptolikeIntarget
                             w[c].push(function(inTarget) {
                                 inTarget.event("cat-view");
                                 console.log("cat-view");
+                            });
+                        })(window, "inTargetCallbacks");
+                    </script>';
+                    Asset::getInstance()->addString($js_code);
+                }
+            }
+            //просмотр товара
+            if (CModule::IncludeModule("catalog")) {
+                global $APPLICATION;
+                $dir = $APPLICATION->GetCurDir();
+                $dirs = explode('/', $dir);
+                if (($dirs[1] == 'e-store' && !empty($dirs[4])) || ($dirs[1] == 'catalog' && !empty($dirs[3]))) {
+                    $js_code = '<script>
+                        (function(w, c) {
+                            w[c] = w[c] || [];
+                            w[c].push(function(inTarget) {
+                                inTarget.event("item-view2method");
+                                console.log("item-view2method");
                             });
                         })(window, "inTargetCallbacks");
                     </script>';
@@ -85,14 +103,14 @@ Class CUptolikeIntarget
     }
 
     //просмотр товара
-    static function productView($arResult, $user_id = false)
+    static function productView($arResult)
     {
         if (!empty($arResult['PRODUCT_ID'])) {
             $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
             if (!$intarget_id)
                 return;
-            $js_code = "<script>alert('item-view')</script>";
-            $js_code .= "<script>
+            //$js_code = "<script>alert('item-view')</script>";
+            $js_code = "<script>
                     (function(w, c) {
                         w[c] = w[c] || [];
                         w[c].push(function(inTarget) {
