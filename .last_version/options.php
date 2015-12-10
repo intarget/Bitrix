@@ -92,13 +92,12 @@ if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
                     }
                 } else CAdminMessage::ShowMessage(array("MESSAGE" => Loc::getMessage("INTARGET_TAB_MESS_7"), "TYPE" => "ERROR"));
             }
-
         }
-
     }
 
     $tabControl->Begin();
-
+    $val_intarget_id = COption::GetOptionString(ADMIN_MODULE_NAME,'intarget_id');
+    $val_intarget_code = COption::GetOptionString(ADMIN_MODULE_NAME,'intarget_code');
     ?>
 
     <form method="post"
@@ -136,7 +135,7 @@ if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
                 <label for="<?= $intarget_mail ?>"><?= Loc::getMessage("INTARGET_MAIL") ?>:</label>
             <td width="60%">
                 <input type="text" size="50" name="<?= $intarget_mail ?>"
-                       value="<?= $val_intarget_mail; ?>">
+                       value="<?= $val_intarget_mail; ?>" <? echo (!empty($val_intarget_id)) ? 'disabled':'';?>>
             <? if(!empty($val_intarget_id)):?>
                 <div style="background-image: url('../images/<?=ADMIN_MODULE_NAME?>/ok.png');width: 16px;height: 16px;margin: -4px -22px;display: inline-block;"></div>
             <?endif;?>
@@ -148,7 +147,7 @@ if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
                 <label for="<?= $intarget_key ?>"><?= Loc::getMessage("INTARGET_KEY") ?>:</label>
             <td width="60%">
                 <input type="text" size="50" name="<?= $intarget_key ?>"
-                       value="<?= $val_intarget_key; ?>">
+                       value="<?= $val_intarget_key; ?>"  <? echo (!empty($val_intarget_id)) ? 'disabled':'';?>>
                 <? if(!empty($val_intarget_id)):?>
                     <div style="background-image: url('../images/<?=ADMIN_MODULE_NAME?>/ok.png');width: 16px;height: 16px;margin: -4px -22px;display: inline-block;"></div>
                 <?endif;?>
@@ -176,14 +175,14 @@ if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
         </tr>
 
         <? $tabControl->Buttons(); ?>
-
-        <input type="submit" name="save" value="<?= GetMessage("MAIN_SAVE") ?>"
-               title="<?= GetMessage("MAIN_OPT_SAVE_TITLE") ?>" class="adm-btn-save">
-        <input type="submit" name="restore" title="<?= GetMessage("MAIN_HINT_RESTORE_DEFAULTS") ?>"
-               OnClick="return confirm('<?= AddSlashes(GetMessage("MAIN_HINT_RESTORE_DEFAULTS_WARNING")) ?>')"
-               value="<?= GetMessage("MAIN_RESTORE_DEFAULTS") ?>">
+        <? if(empty($val_intarget_id)):?>
+            <input type="submit" name="save" value="<?= GetMessage("MAIN_SAVE") ?>"
+                   title="<?= GetMessage("MAIN_OPT_SAVE_TITLE") ?>" class="adm-btn-save">
+            <input type="submit" name="restore" title="<?= GetMessage("MAIN_HINT_RESTORE_DEFAULTS") ?>"
+                   OnClick="return confirm('<?= AddSlashes(GetMessage("MAIN_HINT_RESTORE_DEFAULTS_WARNING")) ?>')"
+                   value="<?= GetMessage("MAIN_RESTORE_DEFAULTS") ?>">
         <?= bitrix_sessid_post(); ?>
-
+        <?endif;?>
         <? $tabControl->End(); ?>
 
     </form>

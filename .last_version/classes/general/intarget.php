@@ -63,8 +63,8 @@ Class CUptolikeIntarget
                         (function(w, c) {
                             w[c] = w[c] || [];
                             w[c].push(function(inTarget) {
-                                inTarget.event("item-view2method");
-                                console.log("item-view2method");
+                                inTarget.event("item-view");
+                                console.log("item-view");
                             });
                         })(window, "inTargetCallbacks");
                     </script>';
@@ -99,29 +99,6 @@ Class CUptolikeIntarget
                 Asset::getInstance()->addString($js_code);
                 $APPLICATION->set_cookie("INTARGET_ORDER_SUCCESS", "N");
             }
-        }
-    }
-
-    //просмотр товара
-    static function productView($arResult)
-    {
-        if (!empty($arResult['PRODUCT_ID'])) {
-            $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
-            if (!$intarget_id)
-                return;
-            //$js_code = "<script>alert('item-view')</script>";
-            $js_code = "<script>
-                    (function(w, c) {
-                        w[c] = w[c] || [];
-                        w[c].push(function(inTarget) {
-                            inTarget.event('item-view');
-                            console.log('item-view');
-                        });
-                    })(window, 'inTargetCallbacks');
-
-                    </script>";
-            Asset::getInstance()->addString($js_code);
-            //$APPLICATION->AddHeadString($js_code, true);
         }
     }
 
