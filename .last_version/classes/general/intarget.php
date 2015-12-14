@@ -20,7 +20,6 @@ Class CUptolikeIntarget
                     var productMatches = current.id.match(/([0-9]+)_buy_link/);
                     if (productMatches) {
                             inTarget.event("add-to-cart");
-                            console.log("add-to-cart");
                      }
                 }
             });
@@ -29,7 +28,6 @@ Class CUptolikeIntarget
                 var current = event.srcElement || event.currentTarget || event.target;
                 if (current.href && current.href.match("action=delete")) {
                         inTarget.event("del-from-cart");
-                         console.log("del-from-cart");
                 }
             });
         </script>';
@@ -46,7 +44,6 @@ Class CUptolikeIntarget
                             w[c] = w[c] || [];
                             w[c].push(function(inTarget) {
                                 inTarget.event("cat-view");
-                                console.log("cat-view");
                             });
                         })(window, "inTargetCallbacks");
                     </script>';
@@ -64,7 +61,6 @@ Class CUptolikeIntarget
                             w[c] = w[c] || [];
                             w[c].push(function(inTarget) {
                                 inTarget.event("item-view");
-                                console.log("item-view");
                             });
                         })(window, "inTargetCallbacks");
                     </script>';
@@ -78,7 +74,6 @@ Class CUptolikeIntarget
                             w[c] = w[c] || [];
                             w[c].push(function(inTarget) {
                                 inTarget.event('user-reg');
-                                console.log('user-reg');
                             });
                         })(window, 'inTargetCallbacks');
                     </script>";
@@ -92,7 +87,6 @@ Class CUptolikeIntarget
                             w[c] = w[c] || [];
                             w[c].push(function(inTarget) {
                                 inTarget.event('success-order');
-                                console.log('success-order');
                             });
                         })(window, 'inTargetCallbacks');
                     </script>";
@@ -146,7 +140,7 @@ Class CUptolikeIntarget
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type:application/json', 'Accept: application/json'));
-        curl_setopt($ch, CURLOPT_URL, "http://intarget-dev.lembrd.com/api/registration.json"); //intarget-dev.lembrd.com
+        curl_setopt($ch, CURLOPT_URL, "https://intarget.ru/api/registration.json"); //intarget-dev.lembrd.com
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsondata);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -189,12 +183,11 @@ Class CUptolikeIntarget
                       f = function () { n.parentNode.insertBefore(s, n); };
                       s.type = 'text/javascript';
                       s.async = true;
-                      s.src = '//rt.intarget-dev.lembrd.com/loader.js';
+                      s.src = '//rt.intarget.ru/loader.js';
                       if (w.opera == '[object Opera]') {
                           d.addEventListener('DOMContentLoaded', f, false);
                       } else { f(); }
                     })(document, window, 'inTargetInit');
-                    console.log('intarget_script');
                 </script>
                 <!-- /INTARGET CODE -->";
         return $jscode;
