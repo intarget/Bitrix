@@ -25,6 +25,14 @@ License: GNU General Public License, version 2
  - Зайдите в настройки модуля в разделе **Настройки - Настройки продукда - Настройки модулей - inTarget eCommerce**.
  - Введите **email** и **ключ API** полученные в ЛК [inTarget](https://intarget.ru).
  - Если все данные введены верно, модуль сообщит вам об этом. 
+ 
+## Установка вручную
+ - Скачайте архив модуля с [GitHub](https://github.com/intarget/Bitrix).
+ - Распакуйте архив в *\www\bitrix\modules\*.
+ - Зайдите в настройки Marketplace в разделе **Marketplace - Установленные решения** и установите **inTarget eCommerce**.
+ - Зайдите в настройки модуля в разделе **Настройки - Настройки продукда - Настройки модулей - inTarget eCommerce**.
+ - Введите **email** и **ключ API** полученные в ЛК [inTarget](https://intarget.ru).
+ - Если все данные введены верно, модуль сообщит вам об этом. 
 
 Более детальную информацию смотрите на сайте [inTarget](https://intarget.ru)
 
