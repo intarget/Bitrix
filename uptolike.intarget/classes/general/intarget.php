@@ -7,6 +7,9 @@ Class CUptolikeIntarget
 {
     function ini($arParams)
     {
+        if (defined('ADMIN_SECTION'))
+            return;
+
         global $APPLICATION;
         $js_code = COption::GetOptionString("uptolike.intarget", "intarget_code");
         $js_code = htmlspecialcharsBack($js_code);
@@ -146,7 +149,14 @@ Class CUptolikeIntarget
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $server_output = curl_exec($ch);
+
+        if (empty($server_output)) {
+            $info = curl_error($ch);
+        }
         curl_close($ch);
+        if (!empty($info)) {
+            return $info;
+        }
         return json_decode($server_output);
     }
 

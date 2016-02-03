@@ -90,7 +90,9 @@ if ($APPLICATION->GetGroupRight(ADMIN_MODULE_NAME) >= 'R') {
 
                         CAdminMessage::ShowMessage(array("MESSAGE" => $json_result->message, "TYPE" => "ERROR"));
                     }
-                } else CAdminMessage::ShowMessage(array("MESSAGE" => Loc::getMessage("INTARGET_TAB_MESS_7"), "TYPE" => "ERROR"));
+                } else {
+                    CAdminMessage::ShowMessage(array("MESSAGE" => Loc::getMessage("INTARGET_TAB_MESS_7").' '.$json_result, "TYPE" => "ERROR"));
+                }
             }
         }
     }

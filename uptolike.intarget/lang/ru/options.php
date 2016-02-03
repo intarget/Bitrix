@@ -35,7 +35,7 @@ $MESS["INTARGET_TAB_TEXT1"] = "Введите email и ключ API из личного кабинета";
 $MESS["INTARGET_TAB_TEXT2"] = "Если вы ещё не зарегистрировались в сервисе inTarget это можно сделать по ссылке";
 $MESS["INTARGET_TAB_TEXT3"] = "Войдите в личный кабинет для просмотра статистики";
 $MESS["INTARGET_TAB_TEXT4"] = "Служба технической поддержки:";
-$MESS["INTARGET_TAB_TEXT5"] = "Bitrix inTarget ver.1.0.0";
+$MESS["INTARGET_TAB_TEXT5"] = "Bitrix inTarget ver.1.0.1";
 
 $MESS['CURL_DISABLED_MESSAGE'] = "Внимание! На хостинге не включена поддержка CURL. Она необходима для работы модуля.";
 $MESS['MAKE_REDIRECT_NO'] = "Нет";
