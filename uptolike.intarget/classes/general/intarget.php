@@ -1,6 +1,5 @@
 <?
 IncludeModuleLangFile(__FILE__);
-
 use Bitrix\Main\Page\Asset;
 
 Class CUptolikeIntarget
