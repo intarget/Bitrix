@@ -2,12 +2,9 @@
 IncludeModuleLangFile(__FILE__);
 use Bitrix\Main\Page\Asset;
 
-Class CUptolikeIntarget
-{
-    function ini($arParams)
-    {
-        if (defined('ADMIN_SECTION'))
-            return;
+Class CUptolikeIntarget {
+    function ini($arParams) {
+        if (defined('ADMIN_SECTION')) return;
 
         global $APPLICATION;
         $js_code = COption::GetOptionString("uptolike.intarget", "intarget_code");
@@ -15,29 +12,70 @@ Class CUptolikeIntarget
 
         if (!empty($js_code)) {
             $APPLICATION->AddHeadString($js_code, true);
+
+            //добавление/удаление товара
             $js_code = '<script type="text/javascript">
-            document.addEventListener("click", function(event){
-                var current = event.srcElement || event.currentTarget || event.target;
-                if (current.id.match("buy_link")) {
-                    var productMatches = current.id.match(/([0-9]+)_buy_link/);
-                    if (productMatches) {
-                            inTarget.event("add-to-cart");
-                     }
-                }
-            });
+                document.addEventListener("click", function(event){
+                    var current = event.srcElement || event.currentTarget || event.target;
+                    if (current.id.match("buy_link")) {
+                        var productMatches = current.id.match(/([0-9]+)_buy_link/);
+                        if (productMatches) {
+                            document.cookie = "INTARGET_ADD=Y; path=/;";
+                        }
+                    }
+                });
+                document.addEventListener("click", function(event){
+                    var current = event.srcElement || event.currentTarget || event.target;
+                    if (current.href && (current.href.match("Action=delete") || current.href.match("action=delete"))) {
+                        document.cookie = "INTARGET_DEL=Y; path=/;";
+                    }
+                });
 
-            document.addEventListener("click", function(event){
-                var current = event.srcElement || event.currentTarget || event.target;
-                if (current.href && current.href.match("action=delete")) {
-                        inTarget.event("del-from-cart");
-                }
-            });
-        </script>';
-
+                document.addEventListener("click", function(event){
+                    var current = event.srcElement || event.currentTarget || event.target;
+                    if (current.href && (current.href.match("Action=delete") || current.href.match("action=delete"))) {
+                        document.cookie = "INTARGET_DEL=Y; path=/;";
+                    }
+                });
+                </script>';
             Asset::getInstance()->addString($js_code);
+
+            $js_code = "<script>
+                function getCookie(name) {
+                  var matches = document.cookie.match(new RegExp(
+                    \"(?:^|; )\" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + \"=([^;]*)\"
+                  ));
+                  return matches ? decodeURIComponent(matches[1]) : 'N';
+                }
+
+                var intarget_add = getCookie('INTARGET_ADD');
+                if(intarget_add && intarget_add == 'Y') {
+                        (function(w, c) {
+                            w[c] = w[c] || [];
+                            w[c].push(function(inTarget) {
+                                inTarget.event('add-to-cart');
+                                console.log('add-to-cart');
+                            });
+                        })(window, 'inTargetCallbacks');
+                        document.cookie = 'INTARGET_ADD=N; path=/;';
+                }
+
+                var intarget_del = getCookie('INTARGET_DEL');
+                if(intarget_del && intarget_del == 'Y') {
+                        (function(w, c) {
+                            w[c] = w[c] || [];
+                            w[c].push(function(inTarget) {
+                                inTarget.event('del-from-cart');
+                                console.log('del-from-cart');
+                            });
+                        })(window, 'inTargetCallbacks');
+                        document.cookie = 'INTARGET_DEL=N; path=/;';
+                }
+                </script>";
+            Asset::getInstance()->addString($js_code);
+
             //просмотр каталога
             if (CModule::IncludeModule("catalog")) {
-                global $APPLICATION;
                 $dir = $APPLICATION->GetCurDir();
                 $dirs = explode('/', $dir);
                 if (($dirs[1] == 'e-store' && empty($dirs[4])) || ($dirs[1] == 'catalog' && empty($dirs[3]))) {
@@ -52,9 +90,9 @@ Class CUptolikeIntarget
                     Asset::getInstance()->addString($js_code);
                 }
             }
+
             //просмотр товара
             if (CModule::IncludeModule("catalog")) {
-                global $APPLICATION;
                 $dir = $APPLICATION->GetCurDir();
                 $dirs = explode('/', $dir);
                 if (($dirs[1] == 'e-store' && !empty($dirs[4])) || ($dirs[1] == 'catalog' && !empty($dirs[3]))) {
@@ -63,6 +101,7 @@ Class CUptolikeIntarget
                             w[c] = w[c] || [];
                             w[c].push(function(inTarget) {
                                 inTarget.event("item-view");
+                                console.log("item-view");
                             });
                         })(window, "inTargetCallbacks");
                     </script>';
@@ -70,17 +109,36 @@ Class CUptolikeIntarget
                 }
             }
 
+            //успешное оформление заказа
             if ($APPLICATION->get_cookie("INTARGET_REG_SUCCESS") == "Y") {
                 $js_code = "<script>
                         (function(w, c) {
                             w[c] = w[c] || [];
                             w[c].push(function(inTarget) {
                                 inTarget.event('user-reg');
+                                console.log('user-reg');
                             });
                         })(window, 'inTargetCallbacks');
                     </script>";
                 Asset::getInstance()->addString($js_code);
                 $APPLICATION->set_cookie("INTARGET_REG_SUCCESS", "N");
+            }
+
+            if (CModule::IncludeModule("catalog")) {
+                $dir = $APPLICATION->GetCurDir();
+                $dirs = explode('/', $dir);
+                if ($dirs[1] == 'personal' && $dirs[2] == 'order' && $dirs[3] == 'make' && empty($dirs[4]) && $_GET['ORDER_ID']) {
+                    $js_code = '<script>
+                        (function(w, c) {
+                            w[c] = w[c] || [];
+                            w[c].push(function(inTarget) {
+                                inTarget.event("success-order");
+                                console.log("success-order");
+                            });
+                        })(window, "inTargetCallbacks");
+                    </script>';
+                    Asset::getInstance()->addString($js_code);
+                }
             }
 
             if ($APPLICATION->get_cookie("INTARGET_ORDER_SUCCESS") == "Y") {
@@ -89,6 +147,7 @@ Class CUptolikeIntarget
                             w[c] = w[c] || [];
                             w[c].push(function(inTarget) {
                                 inTarget.event('success-order');
+                                console.log('success-order');
                             });
                         })(window, 'inTargetCallbacks');
                     </script>";
@@ -98,16 +157,14 @@ Class CUptolikeIntarget
         }
     }
 
-    static function order($ID)
-    {
+    static function order($ID) {
         $arOrder = CSaleOrder::GetByID(intval($ID));
         $filter = Array("EMAIL" => $arOrder['USER_EMAIL']);
         $rsUsers = CUser::GetList(($by = "id"), ($order = "desc"), $filter);
         $res = $rsUsers->Fetch();
         $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
 
-        if (!$intarget_id)
-            return;
+        if (!$intarget_id) return;
         global $APPLICATION;
         $APPLICATION->set_cookie("INTARGET_ORDER_SUCCESS", "Y", time() + 60);
 
@@ -118,30 +175,21 @@ Class CUptolikeIntarget
     }
 
     //цель регистрация пользователя
-    function OnAfterUserRegisterHandler(&$arFields)
-    {
+    function OnAfterUserRegisterHandler(&$arFields) {
         $intarget_id = COption::GetOptionString("uptolike.intarget", "intarget_id");
 
-        if (!$intarget_id)
-            return;
+        if (!$intarget_id) return;
 
         global $APPLICATION;
         $APPLICATION->set_cookie("INTARGET_REG_SUCCESS", "Y", time() + 60);
     }
 
-    static public function userReg($email, $key)
-    {
+    static public function userReg($email, $key) {
         $ch = curl_init();
 
-        $jsondata = json_encode(array(
-                'email' => $email,
-                'key' => $key,
-                'url' => CUptolikeIntarget::GetCurrUrl(),
-                'cms' => 'bitrix')
-        );
+        $jsondata = json_encode(array('email' => $email, 'key' => $key, 'url' => CUptolikeIntarget::GetCurrUrl(), 'cms' => 'bitrix'));
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type:application/json', 'Accept: application/json'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept: application/json'));
         curl_setopt($ch, CURLOPT_URL, "https://intarget.ru/api/registration.json"); //intarget-dev.lembrd.com
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsondata);
@@ -159,8 +207,7 @@ Class CUptolikeIntarget
         return json_decode($server_output);
     }
 
-    static public function GetCurrUrl()
-    {
+    static public function GetCurrUrl() {
         $result = '';
         $default_port = 80;
 
@@ -179,8 +226,7 @@ Class CUptolikeIntarget
         return $result;
     }
 
-    static public function jsCode($id)
-    {
+    static public function jsCode($id) {
         $jscode = "<!-- INTARGET CODE -->
                 <script type='text/javascript'>
                     (function(d, w, c) {
