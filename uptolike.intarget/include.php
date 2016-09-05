@@ -1,5 +1,4 @@
 <?
-CModule::IncludeModule("uptolike.intarget");
 global $DBType;
 
 CModule::AddAutoloadClasses(

@@ -3,8 +3,8 @@
 Tags: intarget, analytics, statistics, sales, widgets, ecommerce, интаргет, аналитика, статистика  
 Requires at least: 11.0.0  
 Tested up to: 15.5.8  
-Stable tag: 1.0.2  
-License: GNU General Public License, version 2  
+Stable tag: 1.0.3  
+License: GNU General Public License, version 3  
 
 **inTarget eCommerce** - система аналитики для интернет-магазинов, с возможностью отслеживать продажи и анализировать конверсии в реальном времени.
 
@@ -23,7 +23,7 @@ License: GNU General Public License, version 2
  - Зайдите в раздел администрирования Marketplace.
  - Найдите модуль **inTarget** от разработчика UpToLike, прописав в поле поиска *intarget*, и установите его.
  - Зайдите в настройки модуля в разделе **Настройки - Настройки продукта - Настройки модулей - inTarget eCommerce**.
- - Введите **email** и **ключ API** полученные в ЛК [inTarget](https://intarget.ru).
+ - Введите **Email** и **ключ API** полученные в ЛК [inTarget](https://intarget.ru).
  - Если все данные введены верно, модуль сообщит вам об этом. 
  
 ## Установка вручную
@@ -32,7 +32,7 @@ License: GNU General Public License, version 2
  - Поумолчанию файлы модуля находятся в кодировке win1251, если ваш сайт имеет отличную кодировку, необходимо конвертировать файлы модуля в соответствующую. При установке с marketplace это происходит в автоматическом режиме.
  - Зайдите в настройки Marketplace в разделе **Marketplace - Установленные решения** и установите **inTarget eCommerce**.
  - Зайдите в настройки модуля в разделе **Настройки - Настройки продукта - Настройки модулей - inTarget eCommerce**.
- - Введите **email** и **ключ API** полученные в ЛК [inTarget](https://intarget.ru).
+ - Введите **Email** и **ключ API** полученные в ЛК [inTarget](https://intarget.ru).
  - Если все данные введены верно, модуль сообщит вам об этом. 
 
 Более детальную информацию смотрите на сайте [inTarget](https://intarget.ru)
@@ -47,6 +47,10 @@ License: GNU General Public License, version 2
 **ключ API:** необходимо указать ключ API, полученный в ЛК [inTarget](https://intarget.ru).
 
 ## Изменения
+####1.0.3
+* Исправлена ошибка Warning: Module 'uptolike.intarget' is in loading progress
+* Исправлена ошибка Warning: Missing argument for CUptolikeIntarget::ini()
+
 ####1.0.2
  * Code refactoring
 

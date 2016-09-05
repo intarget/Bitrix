@@ -3,7 +3,7 @@ IncludeModuleLangFile(__FILE__);
 use Bitrix\Main\Page\Asset;
 
 Class CUptolikeIntarget {
-    function ini($arParams) {
+    function ini() {
         if (defined('ADMIN_SECTION')) return;
 
         global $APPLICATION;

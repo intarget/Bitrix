@@ -29,13 +29,13 @@ $MESS["INTARGET_TAB_BTN_AUTORIZ"] = "Авторизация";
 $MESS["INTARGET_ID_SUCCESS"] = "Поздравляем, сайт успешно привязан к аккаунту inTarget";
 
 $MESS["INTARGET_TAB_MAIL_ILLEGAL_ARGUMENTS"] = "<span style='color:red;'>Email пустой или указан неверно.</span>";
-$MESS["INTARGET_TAB_MAIL_ALREADY_EXISTS"] = "<span style='color:red;'>Пользователь с таким email уже зарегистрирован, обратитесь в службу поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a></span>";
+$MESS["INTARGET_TAB_MAIL_ALREADY_EXISTS"] = "<span style='color:red;'>Пользователь с таким Email уже зарегистрирован, обратитесь в службу поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a></span>";
 
 $MESS["INTARGET_TAB_TEXT1"] = "Введите email и ключ API из личного кабинета";
 $MESS["INTARGET_TAB_TEXT2"] = "Если вы ещё не зарегистрировались в сервисе inTarget это можно сделать по ссылке";
 $MESS["INTARGET_TAB_TEXT3"] = "Войдите в личный кабинет для просмотра статистики";
 $MESS["INTARGET_TAB_TEXT4"] = "Служба технической поддержки:";
-$MESS["INTARGET_TAB_TEXT5"] = "Bitrix inTarget ver.1.0.2";
+$MESS["INTARGET_TAB_TEXT5"] = "Bitrix inTarget ver.1.0.3";
 
 $MESS['CURL_DISABLED_MESSAGE'] = "Внимание! На хостинге не включена поддержка CURL. Она необходима для работы модуля.";
 $MESS['MAKE_REDIRECT_NO'] = "Нет";
@@ -43,5 +43,5 @@ $MESS['MAKE_REDIRECT_YES'] = "Да";
 
 $MESS['OPTIONS_RESTORED'] = "Значения сброшены";
 $MESS['OPTIONS_SAVED'] = "Значения сохранены успешно";
-$MESS['ERROR_MAIL_EMPTY'] = "Значение уникального email должно быть заполнено";
+$MESS['ERROR_MAIL_EMPTY'] = "Значение уникального Email должно быть заполнено";
 $MESS['ERROR_KEY_EMPTY'] = "Значение уникального ключа API должно быть заполнено";
